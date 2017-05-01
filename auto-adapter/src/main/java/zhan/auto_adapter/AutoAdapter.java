@@ -22,21 +22,26 @@ public class AutoAdapter extends RecyclerView.Adapter {
 
   @Override public int getItemViewType(int position) {
     return packageList.get(position).getType();
-}
+  }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
     if (holderPackage == null) {
       throw new RuntimeException(
-          "not find viewType is: (" + viewType + ")  holder, viewType error");
+          "not find viewType is: ( " + viewType + " )  holder, viewType error");
     }
     int holderLayoutRes = holderPackage.getHolderLayoutRes();
     View itemView =
         LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
     Class holderClass = holderPackage.getHolderClass();
+
+    Object obj1 = holderPackage.getObj1();
+    Object obj2 = holderPackage.getObj2();
+    Object obj3 = holderPackage.getObj3();
     try {
-      Constructor constructor = holderClass.getConstructor(View.class);
-      AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView);
+      Constructor constructor = holderClass.getConstructor(View.class, Object.class, Object.class, Object.class);
+      AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView, obj1, obj2, obj3);
+
       holderList.add(autoHolder);
       return autoHolder;
     } catch (NoSuchMethodException e) {
@@ -48,7 +53,7 @@ public class AutoAdapter extends RecyclerView.Adapter {
     } catch (InvocationTargetException e) {
       e.printStackTrace();
     }
-    throw new RuntimeException(holderClass + "constructor error");
+    throw new RuntimeException("( " + holderClass + " )  constructor error");
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -77,8 +82,29 @@ public class AutoAdapter extends RecyclerView.Adapter {
     return this;
   }
 
+  public <H extends AutoHolder> AutoAdapter setHolder(Integer key, Class<H> holderClass,
+      int layoutRes, Object obj1, Object obj2, Object obj3) {
+    holderPackageMap.put(key, new AutoHolderPackage<>(holderClass, layoutRes, obj1, obj2, obj3));
+    return this;
+  }
+
   public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes) {
     return setHolder(holderClass.hashCode(), holderClass, layoutRes);
+  }
+
+  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes,
+      Object obj1) {
+    return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, null, null);
+  }
+
+  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes,
+      Object obj1, Object obj2) {
+    return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, obj2, null);
+  }
+
+  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes,
+      Object obj1, Object obj2, Object obj3) {
+    return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, obj2, obj3);
   }
 
   /////////////////////////////////////////////////////////////////////////

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 import java.util.List;
 import zhan.auto_adapter.AutoAdapter;
 import zhan.autorecycleradapter.R;
@@ -28,7 +29,7 @@ import zhan.autorecycleradapter.utils.ModelHelper;
  * Created by ruzhan on 2017/5/1.
  */
 
-public class AutoMultiActivity extends AppCompatActivity {
+public class AutoMultiActivity extends AppCompatActivity implements SendListener {
 
   private static final int SPAN_SIZE = 10;
 
@@ -63,7 +64,7 @@ public class AutoMultiActivity extends AppCompatActivity {
     //autoAdapter.setHolder(AutoTypeEHolder.class, R.layout.item_type_e);
     //autoAdapter.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 
-    autoAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner)
+    autoAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
         .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
         .setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
         .setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
@@ -99,5 +100,13 @@ public class AutoMultiActivity extends AppCompatActivity {
         .setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE)
         .setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2)
         .notifyDataSetChanged();
+  }
+
+  public void sendNetWorkRequest() {
+    Toast.makeText(this, "send net work request", Toast.LENGTH_SHORT).show();
+  }
+
+  @Override public void send() {
+    sendNetWorkRequest();
   }
 }

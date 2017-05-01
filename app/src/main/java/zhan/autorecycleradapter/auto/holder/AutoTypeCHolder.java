@@ -16,8 +16,8 @@ public class AutoTypeCHolder extends AutoHolder<LiBean> {
   private ImageView iv;
   private TextView tv;
 
-  public AutoTypeCHolder(View itemView) {
-    super(itemView);
+  public AutoTypeCHolder(View itemView, Object obj1, Object obj2, Object obj3) {
+    super(itemView, obj1, obj2, obj3);
     iv = (ImageView) itemView.findViewById(R.id.icon_iv);
     tv = (TextView) itemView.findViewById(R.id.title_tv);
   }
