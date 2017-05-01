@@ -32,12 +32,14 @@ public class AutoMultiActivity extends AppCompatActivity {
 
   private static final int SPAN_SIZE = 10;
 
+  private AutoAdapter autoAdapter;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recycler);
 
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-    final AutoAdapter autoAdapter = new AutoAdapter();
+    autoAdapter = new AutoAdapter();
     recyclerView.setAdapter(autoAdapter);
 
     //multi item need set SpanSize
@@ -53,12 +55,13 @@ public class AutoMultiActivity extends AppCompatActivity {
 
     //set holder
 
-    //autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_banner);
-    //autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_type_a);
-    //autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_type_b);
-    //autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_type_c);
-    //autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_type_d);
-    //autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_type_e);
+    //autoAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner);
+    //autoAdapter.setHolder(AutoTypeAHolder.class, R.layout.item_type_a);
+    //autoAdapter.setHolder(AutoTypeBHolder.class, R.layout.item_type_b);
+    //autoAdapter.setHolder(AutoTypeCHolder.class, R.layout.item_type_c);
+    //autoAdapter.setHolder(AutoTypeDHolder.class, R.layout.item_type_d);
+    //autoAdapter.setHolder(AutoTypeEHolder.class, R.layout.item_type_e);
+    //autoAdapter.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 
     autoAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner)
         .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
@@ -79,12 +82,13 @@ public class AutoMultiActivity extends AppCompatActivity {
 
     //set data
 
-    //autoAdapter.setDataList(AutoBannerHolder.class, zhaoList);
-    //autoAdapter.setDataList(AutoTypeAHolder.class, qianList);
-    //autoAdapter.setDataList(AutoTypeBHolder.class, sunList);
-    //autoAdapter.setDataList(AutoTypeCHolder.class, liList);
-    //autoAdapter.setDataList(AutoTypeDHolder.class, zhouList);
-    //autoAdapter.setDataList(AutoTypeEHolder.class, wuList);
+    //autoAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE);
+    //autoAdapter.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5);
+    //autoAdapter.setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE);
+    //autoAdapter.setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2);
+    //autoAdapter.setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5);
+    //autoAdapter.setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE);
+    //autoAdapter.setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2);
     //autoAdapter.notifyDataSetChanged();
 
     autoAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)

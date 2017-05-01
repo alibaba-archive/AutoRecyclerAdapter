@@ -16,11 +16,11 @@ public class StandardSingleAdapter extends RecyclerView.Adapter {
 
   private List<ZhaoBean> data;
 
-  public void setData(List<ZhaoBean> data) {
-    if (data == null || data.isEmpty()) {
+  public void setData(List<ZhaoBean> list) {
+    if (list == null || list.isEmpty()) {
       return;
     }
-    this.data = data;
+    data = list;
     notifyDataSetChanged();
   }
 

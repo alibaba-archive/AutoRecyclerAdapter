@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import zhan.autorecycleradapter.auto.AutoMultiActivity;
 import zhan.autorecycleradapter.auto.AutoSingleActivity;
+import zhan.autorecycleradapter.standard.StandardMultiActivity;
 import zhan.autorecycleradapter.standard.StandardSingleActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void standardMultiItem(View view) {
-    //launch(this, StandardMultiActivity.class);
+    launch(this, StandardMultiActivity.class);
   }
 
   public void autoSingleItem(View view) {
