@@ -19,6 +19,7 @@
 
     <activity android:name=".standard.StandardSingleActivity" android:screenOrientation="portrait"/>
     <activity android:name=".standard.StandardMultiActivity" android:screenOrientation="portrait"/>
+    <activity android:name=".standard.StandardMultiActivity2" android:screenOrientation="portrait"/>
 
     <activity android:name=".auto.AutoSingleActivity" android:screenOrientation="portrait"/>
     <activity android:name=".auto.AutoMultiActivity" android:screenOrientation="portrait"/>

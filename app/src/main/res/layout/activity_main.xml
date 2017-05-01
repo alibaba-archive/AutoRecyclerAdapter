@@ -26,6 +26,14 @@
         android:layout_height="wrap_content"
         />
 
+    <Button
+        android:onClick="standardMultiItem2"
+        android:text="standard multi item 2"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <View
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"

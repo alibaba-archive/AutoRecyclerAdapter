@@ -8,6 +8,7 @@ import android.view.View;
 import zhan.autorecycleradapter.auto.AutoMultiActivity;
 import zhan.autorecycleradapter.auto.AutoSingleActivity;
 import zhan.autorecycleradapter.standard.StandardMultiActivity;
+import zhan.autorecycleradapter.standard.StandardMultiActivity2;
 import zhan.autorecycleradapter.standard.StandardSingleActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
   public void standardMultiItem(View view) {
     launch(this, StandardMultiActivity.class);
+  }
+
+  public void standardMultiItem2(View view) {
+    launch(this, StandardMultiActivity2.class);
   }
 
   public void autoSingleItem(View view) {

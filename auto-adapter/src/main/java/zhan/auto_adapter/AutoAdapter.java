@@ -52,9 +52,9 @@ public class AutoAdapter extends RecyclerView.Adapter {
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    Object bean = packageList.get(position).getAutoPackage();
     if (holder instanceof AutoHolder) {
       AutoHolder autoHolder = (AutoHolder) holder;
+      Object bean = packageList.get(position).getAutoPackage();
       autoHolder.bind(position, bean);
     }
   }
