@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/shape_bg"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+  <ImageView
+      android:id="@+id/icon_iv"
+      android:layout_centerVertical="true"
+      android:layout_marginLeft="5dp"
+      android:scaleType="centerCrop"
+      android:layout_width="50dp"
+      android:layout_height="50dp"/>
+
+  <TextView
+      android:id="@+id/title_tv"
+      android:layout_marginLeft="25dp"
+      android:layout_toRightOf="@id/icon_iv"
+      android:layout_centerVertical="true"
+      android:textColor="#FF383838"
+      android:textSize="20sp"
+      android:text="this is a good man"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+</RelativeLayout>

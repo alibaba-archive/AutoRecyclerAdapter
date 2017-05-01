@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/shape_bg"
+    android:layout_width="match_parent"
+    android:layout_height="160dp">
+
+  <ImageView
+      android:id="@+id/banner_iv"
+      android:scaleType="centerCrop"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+</RelativeLayout>
