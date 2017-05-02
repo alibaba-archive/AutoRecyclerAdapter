@@ -1,4 +1,6 @@
-#AutoRecyclerAdapter
+
+AutoRecyclerAdapter
+===============
 
 >我在写大量重复RecyclerView.Adapter的时候，发现我的大部分时间都花在写重复，机械式的if与else，不论是getItemViewType，onCreateViewHolder，onBindViewHolder还是setSpanSizeLookup的getSpanSize，都充斥着大量的if与else。
 
@@ -21,101 +23,101 @@
 
 ```java
 
-		public class StandardMultiAdapter extends RecyclerView.Adapter {
-		
-		public static final int SPAN_SIZE = 10;
-		
-		private static final int TYPE_ZHAO = 1000;
-		private static final int TYPE_QIAN = 1001;
-		private static final int TYPE_SUN = 1002;
-		private static final int TYPE_LI = 1003;
-		private static final int TYPE_ZHOU = 1004;
-		private static final int TYPE_WU = 1005;
-		private static final int TYPE_ZHENG = 1006;
-		
-		private List<Object> data = new ArrayList<>();
+	public class StandardMultiAdapter extends RecyclerView.Adapter {
+	
+	public static final int SPAN_SIZE = 10;
+	
+	private static final int TYPE_ZHAO = 1000;
+	private static final int TYPE_QIAN = 1001;
+	private static final int TYPE_SUN = 1002;
+	private static final int TYPE_LI = 1003;
+	private static final int TYPE_ZHOU = 1004;
+	private static final int TYPE_WU = 1005;
+	private static final int TYPE_ZHENG = 1006;
+	
+	private List<Object> data = new ArrayList<>();
 ```
 
 getItemViewType:
 
 ```java
 
-		@Override public int getItemViewType(int position) {
-		Object object = data.get(position);
-		if (object instanceof ZhaoBean) {
-		  return TYPE_ZHAO;
-		} else if (object instanceof QianBean) {
-		  return TYPE_QIAN;
-		} else if (object instanceof SunBean) {
-		  return TYPE_SUN;
-		} else if (object instanceof LiBean) {
-		  return TYPE_LI;
-		} else if (object instanceof ZhouBean) {
-		  return TYPE_ZHOU;
-		} else if (object instanceof WuBean) {
-		  return TYPE_WU;
-		} else if (object instanceof ZhengBean) {
-		  return TYPE_ZHENG;
-		}
-		return TYPE_ZHENG;
-		}
+	@Override public int getItemViewType(int position) {
+	Object object = data.get(position);
+	if (object instanceof ZhaoBean) {
+	  return TYPE_ZHAO;
+	} else if (object instanceof QianBean) {
+	  return TYPE_QIAN;
+	} else if (object instanceof SunBean) {
+	  return TYPE_SUN;
+	} else if (object instanceof LiBean) {
+	  return TYPE_LI;
+	} else if (object instanceof ZhouBean) {
+	  return TYPE_ZHOU;
+	} else if (object instanceof WuBean) {
+	  return TYPE_WU;
+	} else if (object instanceof ZhengBean) {
+	  return TYPE_ZHENG;
+	}
+	return TYPE_ZHENG;
+	}
 ```
 
 onCreateViewHolder:
 
 ```java
 
-		@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		if (viewType == TYPE_ZHAO) {
-		  return new BannerHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_banner, parent, false));
-		} else if (viewType == TYPE_QIAN) {
-		  return new TypeAHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_a, parent, false));
-		} else if (viewType == TYPE_SUN) {
-		  return new TypeBHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_b, parent, false));
-		} else if (viewType == TYPE_LI) {
-		  return new TypeCHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_c, parent, false));
-		} else if (viewType == TYPE_ZHOU) {
-		  return new TypeDHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_d, parent, false));
-		} else if (viewType == TYPE_WU) {
-		  return new TypeEHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_e, parent, false));
-		} else if (viewType == TYPE_ZHENG) {
-		  return new TypeFHolder(
-		      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_f, parent, false));
-		}
-		return new TypeFHolder(
-		    LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_f, parent, false));
-		}
+	@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	if (viewType == TYPE_ZHAO) {
+	  return new BannerHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_banner, parent, false));
+	} else if (viewType == TYPE_QIAN) {
+	  return new TypeAHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_a, parent, false));
+	} else if (viewType == TYPE_SUN) {
+	  return new TypeBHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_b, parent, false));
+	} else if (viewType == TYPE_LI) {
+	  return new TypeCHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_c, parent, false));
+	} else if (viewType == TYPE_ZHOU) {
+	  return new TypeDHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_d, parent, false));
+	} else if (viewType == TYPE_WU) {
+	  return new TypeEHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_e, parent, false));
+	} else if (viewType == TYPE_ZHENG) {
+	  return new TypeFHolder(
+	      LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_f, parent, false));
+	}
+	return new TypeFHolder(
+	    LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_f, parent, false));
+	}
 ```
 
 onBindViewHolder:
 
 ```java
 
-		@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-		int viewType = getItemViewType(position);
-		
-		if (viewType == TYPE_ZHAO) {
-		  ((BannerHolder) holder).bind(position, (ZhaoBean) data.get(position));
-		} else if (viewType == TYPE_QIAN) {
-		  ((TypeAHolder) holder).bind(position, (QianBean) data.get(position));
-		} else if (viewType == TYPE_SUN) {
-		  ((TypeBHolder) holder).bind(position, (SunBean) data.get(position));
-		} else if (viewType == TYPE_LI) {
-		  ((TypeCHolder) holder).bind(position, (LiBean) data.get(position));
-		} else if (viewType == TYPE_ZHOU) {
-		  ((TypeDHolder) holder).bind(position, (ZhouBean) data.get(position));
-		} else if (viewType == TYPE_WU) {
-		  ((TypeEHolder) holder).bind(position, (WuBean) data.get(position));
-		} else if (viewType == TYPE_ZHENG) {
-		  ((TypeFHolder) holder).bind(position, (ZhengBean) data.get(position));
-		}
-		}
+	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+	int viewType = getItemViewType(position);
+	
+	if (viewType == TYPE_ZHAO) {
+	  ((BannerHolder) holder).bind(position, (ZhaoBean) data.get(position));
+	} else if (viewType == TYPE_QIAN) {
+	  ((TypeAHolder) holder).bind(position, (QianBean) data.get(position));
+	} else if (viewType == TYPE_SUN) {
+	  ((TypeBHolder) holder).bind(position, (SunBean) data.get(position));
+	} else if (viewType == TYPE_LI) {
+	  ((TypeCHolder) holder).bind(position, (LiBean) data.get(position));
+	} else if (viewType == TYPE_ZHOU) {
+	  ((TypeDHolder) holder).bind(position, (ZhouBean) data.get(position));
+	} else if (viewType == TYPE_WU) {
+	  ((TypeEHolder) holder).bind(position, (WuBean) data.get(position));
+	} else if (viewType == TYPE_ZHENG) {
+	  ((TypeFHolder) holder).bind(position, (ZhengBean) data.get(position));
+	}
+	}
 ```
 
 
@@ -123,9 +125,9 @@ getItemCount:
 
 ```java
 
-		@Override public int getItemCount() {
-		return data == null ? 0 : data.size();
-		}
+	@Override public int getItemCount() {
+	return data == null ? 0 : data.size();
+	}
 ```
 
 
@@ -133,26 +135,26 @@ setSpanSizeLookup的getSpanSize，为了方便我也写到Adapter里了:
 
 ```java
 
-		public int getSpanSize(int position) {
-		int viewType = getItemViewType(position);
-		
-		if (viewType == TYPE_ZHAO) {
-		  return SPAN_SIZE;
-		} else if (viewType == TYPE_QIAN) {
-		  return SPAN_SIZE / 5;
-		} else if (viewType == TYPE_SUN) {
-		  return SPAN_SIZE;
-		} else if (viewType == TYPE_LI) {
-		  return SPAN_SIZE / 2;
-		} else if (viewType == TYPE_ZHOU) {
-		  return SPAN_SIZE / 5;
-		} else if (viewType == TYPE_WU) {
-		  return SPAN_SIZE;
-		} else if (viewType == TYPE_ZHENG) {
-		  return SPAN_SIZE / 2;
-		}
-		return SPAN_SIZE;
-		}
+	public int getSpanSize(int position) {
+	int viewType = getItemViewType(position);
+	
+	if (viewType == TYPE_ZHAO) {
+	  return SPAN_SIZE;
+	} else if (viewType == TYPE_QIAN) {
+	  return SPAN_SIZE / 5;
+	} else if (viewType == TYPE_SUN) {
+	  return SPAN_SIZE;
+	} else if (viewType == TYPE_LI) {
+	  return SPAN_SIZE / 2;
+	} else if (viewType == TYPE_ZHOU) {
+	  return SPAN_SIZE / 5;
+	} else if (viewType == TYPE_WU) {
+	  return SPAN_SIZE;
+	} else if (viewType == TYPE_ZHENG) {
+	  return SPAN_SIZE / 2;
+	}
+	return SPAN_SIZE;
+	}
 ```
 
 **PS：可能有上面写法的一些疑问：**
@@ -215,10 +217,10 @@ MultiType:
 
 ```java
 
-		public class MultiType {
-		
-		private int type;
-		private int spanSize;
+	public class MultiType {
+	
+	private int type;
+	private int spanSize;
 ```
 
 
@@ -227,7 +229,7 @@ MultiType:
 
 ```java
 
-		public class ZhaoMultiBean extends MultiType {
+	public class ZhaoMultiBean extends MultiType {
 ```
 
 
@@ -242,9 +244,9 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 
 ```java
 
-		public class StandardMultiAdapter extends RecyclerView.Adapter {
-		
-		private List<MultiType> data = new ArrayList<>();
+	public class StandardMultiAdapter extends RecyclerView.Adapter {
+	
+	private List<MultiType> data = new ArrayList<>();
 ```
 
 
@@ -253,10 +255,10 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 
 ```java
 
-		@Override public int getItemViewType(int position) {
-		MultiType multiType = data.get(position);
-		return multiType.getType();
-		}
+	@Override public int getItemViewType(int position) {
+	MultiType multiType = data.get(position);
+	return multiType.getType();
+	}
 ```
 
 
@@ -265,10 +267,10 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 
 ```java
 
-		public int getSpanSize(int position) {
-		MultiType multiType = data.get(position);
-		return multiType.getSpanSize();
-		}
+	public int getSpanSize(int position) {
+	MultiType multiType = data.get(position);
+	return multiType.getSpanSize();
+	}
 ```
 
 **当然，外面是需要设置好type与SpanSize的(SpanSize看需要设置，默认可不设置)**
@@ -277,10 +279,10 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 
 ```java
 
-		ZhaoMultiBean multiBean =
-		  new ZhaoMultiBean(bean.getText(), bean.getStr(), bean.getIcon());
-		multiBean.setType(type);
-		multiBean.setSpanSize(spanSize);
+	ZhaoMultiBean multiBean =
+	  new ZhaoMultiBean(bean.getText(), bean.getStr(), bean.getIcon());
+	multiBean.setType(type);
+	multiBean.setSpanSize(spanSize);
 ```
 
 酱紫getItemViewType(int position)与getSpanSize(int position)if与else被干掉了
@@ -311,27 +313,27 @@ Holder是根据不同的ViewType创建出来的，每一个Holder所需要的mod
 
 ```java
 
-		public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
-		
-		
-		public AutoHolder(View itemView) {
-		super(itemView);
-		}
-		
-		public abstract void bind(int position, M bean);
-		}
+	public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
+	
+	
+	public AutoHolder(View itemView) {
+	super(itemView);
+	}
+	
+	public abstract void bind(int position, M bean);
+	}
 ```
 
 然后在onBindViewHolder里这样做：
 
 ```java
 		
-		@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-		if(holder instanceof MultiHolder) {
-		  MultiHolder multiHolder = (MultiHolder) holder;
-		  multiHolder.bind(position, data.get(position));
-		}
-		}
+	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+	if(holder instanceof MultiHolder) {
+	  MultiHolder multiHolder = (MultiHolder) holder;
+	  multiHolder.bind(position, data.get(position));
+	}
+	}
 ```
 
 通过position获取到一个对象MultiType，通过Holder的bind方法传递进去，而Holder里bind参数是填写泛型的，这样就达到自动强转的目的了
@@ -365,10 +367,10 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 
 ```java
 		
-		public class AutoHolderPackage<H extends AutoHolder> {
-		
-		private Class<H> holderClass;
-		private int holderLayoutRes;
+	public class AutoHolderPackage<H extends AutoHolder> {
+	
+	private Class<H> holderClass;
+	private int holderLayoutRes;
 ```
 
 然后在Adapter创建一个Holder与viewType的键值对集合：
@@ -376,41 +378,41 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 
 ```java
 		
-		protected SparseArray<AutoHolderPackage> holderPackageMap = new SparseArray<>();
+	protected SparseArray<AutoHolderPackage> holderPackageMap = new SparseArray<>();
 ```
 
 接下来，字节码+反射动态创建不同的Holder：
 
 ```java
 		
-		@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
-		if (holderPackage == null) {
-		  throw new RuntimeException(
-		      "not find viewType is: ( " + viewType + " )  holder, viewType error");
-		}
-		int holderLayoutRes = holderPackage.getHolderLayoutRes();
-		View itemView =
-		    LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
-		Class holderClass = holderPackage.getHolderClass();
-		
-		try {
-		  Constructor constructor = holderClass.getConstructor(View.class);
-		  AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView);
-		
-		  holderList.add(autoHolder);
-		  return autoHolder;
-		} catch (NoSuchMethodException e) {
-		  e.printStackTrace();
-		} catch (IllegalAccessException e) {
-		  e.printStackTrace();
-		} catch (InstantiationException e) {
-		  e.printStackTrace();
-		} catch (InvocationTargetException e) {
-		  e.printStackTrace();
-		}
-		throw new RuntimeException("( " + holderClass + " )  constructor error");
-  }
+	@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
+	if (holderPackage == null) {
+	  throw new RuntimeException(
+	      "not find viewType is: ( " + viewType + " )  holder, viewType error");
+	}
+	int holderLayoutRes = holderPackage.getHolderLayoutRes();
+	View itemView =
+	    LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
+	Class holderClass = holderPackage.getHolderClass();
+	
+	try {
+	  Constructor constructor = holderClass.getConstructor(View.class);
+	  AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView);
+	
+	  holderList.add(autoHolder);
+	  return autoHolder;
+	} catch (NoSuchMethodException e) {
+	  e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	  e.printStackTrace();
+	} catch (InstantiationException e) {
+	  e.printStackTrace();
+	} catch (InvocationTargetException e) {
+	  e.printStackTrace();
+	}
+	throw new RuntimeException("( " + holderClass + " )  constructor error");
+	}
 ```
 
 在外面只需要把Holder.class与布局资源设置到AutoHolderPackage与viewType形成键值对的形式就完成了。
@@ -443,10 +445,10 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 
 ```java
 
-		ZhaoMultiBean multiBean =
-		  new ZhaoMultiBean(bean.getText(), bean.getStr(), bean.getIcon());
-		multiBean.setType(type);
-		multiBean.setSpanSize(spanSize);
+	ZhaoMultiBean multiBean =
+	  new ZhaoMultiBean(bean.getText(), bean.getStr(), bean.getIcon());
+	multiBean.setType(type);
+	multiBean.setSpanSize(spanSize);
 ```
 
 对Adapter的每一个model都设置type与spanSize,又要集成MultiType对象，又要设置。。。
@@ -458,36 +460,36 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 
 ```java
 
-public class AutoPackage {
-
-  private int type;
-  private Object autoPackage;
-  private int spanSize;
+	public class AutoPackage {
+	
+	private int type;
+	private Object autoPackage;
+	private int spanSize;
 ```
 
 换一种思路，把需要的model与需要的type，spanSize都包在一起，而且是代码自动包，这样解决了对原来的model的入侵。
 
 ```java
 
-		private <M> AutoRecyclerAdapter setDataObject(int type, M bean, int spanSize) {
-		AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
-		packageList.add(index, autoPackage);
-		return this;
-		}
+	private <M> AutoRecyclerAdapter setDataObject(int type, M bean, int spanSize) {
+	AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
+	packageList.add(index, autoPackage);
+	return this;
+	}
 ```
 
 这样子，Adapter的List也要改变了：
 
 ```java
 
-		protected List<AutoPackage> packageList = new ArrayList<>();
+	protected List<AutoPackage> packageList = new ArrayList<>();
 ```
 
 使用方式：
 
 ```java
 
-		autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
+	autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
 ```
 
 不用在对model设置type和其他处理了，保证了model的纯正。
@@ -499,46 +501,46 @@ public class AutoPackage {
 
 ```java
 
-		public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
-		
-		protected Object obj1;
-		protected Object obj2;
-		protected Object obj3;
-		
-		public AutoHolder(View itemView, Object obj1, Object obj2, Object obj3) {
-		super(itemView);
-		this.obj1 = obj1;
-		this.obj2 = obj2;
-		this.obj3 = obj3;
-		}
-		
-		public abstract void bind(int position, M bean);
+	public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
+	
+	protected Object obj1;
+	protected Object obj2;
+	protected Object obj3;
+	
+	public AutoHolder(View itemView, Object obj1, Object obj2, Object obj3) {
+	super(itemView);
+	this.obj1 = obj1;
+	this.obj2 = obj2;
+	this.obj3 = obj3;
+	}
+	
+	public abstract void bind(int position, M bean);
 }
 ```
 
 
 ```java
 
-		@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
-		if (holderPackage == null) {
-		  throw new RuntimeException(
-		      "not find viewType is: ( " + viewType + " )  holder, viewType error");
-		}
-		int holderLayoutRes = holderPackage.getHolderLayoutRes();
-		View itemView =
-		    LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
-		Class holderClass = holderPackage.getHolderClass();
-		
-		Object obj1 = holderPackage.getObj1();
-		Object obj2 = holderPackage.getObj2();
-		Object obj3 = holderPackage.getObj3();
-		try {
-		  Constructor constructor = holderClass.getConstructor(View.class, Object.class, Object.class, Object.class);
-		  AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView, obj1, obj2, obj3);
-		
-		  holderList.add(autoHolder);
-		  return autoHolder;
+	@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
+	if (holderPackage == null) {
+	  throw new RuntimeException(
+	      "not find viewType is: ( " + viewType + " )  holder, viewType error");
+	}
+	int holderLayoutRes = holderPackage.getHolderLayoutRes();
+	View itemView =
+	    LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
+	Class holderClass = holderPackage.getHolderClass();
+	
+	Object obj1 = holderPackage.getObj1();
+	Object obj2 = holderPackage.getObj2();
+	Object obj3 = holderPackage.getObj3();
+	try {
+	  Constructor constructor = holderClass.getConstructor(View.class, Object.class, Object.class, Object.class);
+	  AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView, obj1, obj2, obj3);
+	
+	  holderList.add(autoHolder);
+	  return autoHolder;
 }
 ```
 
@@ -547,7 +549,7 @@ public class AutoPackage {
 
 ```java
 
-		autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
+	autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
 ```
 
 **5-3. 如何简单，优雅的设置**
@@ -559,14 +561,14 @@ public class AutoPackage {
 设置Holder
 
 ```java
-
-		autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
-		    .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
-		    .setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
-		    .setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
-		    .setHolder(AutoTypeDHolder.class, R.layout.item_type_d)
-		    .setHolder(AutoTypeEHolder.class, R.layout.item_type_e)
-		    .setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
+	
+	autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
+	    .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
+	    .setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
+	    .setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
+	    .setHolder(AutoTypeDHolder.class, R.layout.item_type_d)
+	    .setHolder(AutoTypeEHolder.class, R.layout.item_type_e)
+	    .setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 ```
 
 
@@ -574,28 +576,28 @@ public class AutoPackage {
 
 ```java
 
-		//net work request data
-		List<ZhaoBean> zhaoList = ModelHelper.getZhaoList(1);
-		List<QianBean> qianList = ModelHelper.getQianList(10);
-		List<SunBean> sunList = ModelHelper.getSunList(1);
-		List<LiBean> liList = ModelHelper.getLiList(4);
-		List<ZhouBean> zhouList = ModelHelper.getZhouList(10);
-		List<WuBean> wuList = ModelHelper.getWuList(1);
-		List<ZhengBean> zhengList = ModelHelper.getZhengList(30);
+	//net work request data
+	List<ZhaoBean> zhaoList = ModelHelper.getZhaoList(1);
+	List<QianBean> qianList = ModelHelper.getQianList(10);
+	List<SunBean> sunList = ModelHelper.getSunList(1);
+	List<LiBean> liList = ModelHelper.getLiList(4);
+	List<ZhouBean> zhouList = ModelHelper.getZhouList(10);
+	List<WuBean> wuList = ModelHelper.getWuList(1);
+	List<ZhengBean> zhengList = ModelHelper.getZhengList(30);
 ```
 
 设置Adapter的model：
 
 ```java
 
-		autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
-		    .setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
-		    .setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE)
-		    .setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2)
-		    .setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5)
-		    .setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE)
-		    .setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2)
-		    .notifyDataSetChanged();
+	autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
+	    .setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
+	    .setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE)
+	    .setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2)
+	    .setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5)
+	    .setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE)
+	    .setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2)
+	    .notifyDataSetChanged();
 ```
 
 尽量做到使用简单，优雅了。。。
