@@ -14,7 +14,7 @@ import java.util.List;
  * Created by ruzhan on 2017/5/1.
  */
 
-public class AutoAdapter extends RecyclerView.Adapter {
+public class AutoRecyclerAdapter extends RecyclerView.Adapter {
 
   protected List<AutoPackage> packageList = new ArrayList<>();
   protected SparseArray<AutoHolderPackage> holderPackageMap = new SparseArray<>();
@@ -76,33 +76,33 @@ public class AutoAdapter extends RecyclerView.Adapter {
   //                               set holder
   /////////////////////////////////////////////////////////////////////////
 
-  public <H extends AutoHolder> AutoAdapter setHolder(Integer key, Class<H> holderClass,
+  public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Integer key, Class<H> holderClass,
       int layoutRes) {
     holderPackageMap.put(key, new AutoHolderPackage<>(holderClass, layoutRes));
     return this;
   }
 
-  public <H extends AutoHolder> AutoAdapter setHolder(Integer key, Class<H> holderClass,
+  public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Integer key, Class<H> holderClass,
       int layoutRes, Object obj1, Object obj2, Object obj3) {
     holderPackageMap.put(key, new AutoHolderPackage<>(holderClass, layoutRes, obj1, obj2, obj3));
     return this;
   }
 
-  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes) {
+  public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes) {
     return setHolder(holderClass.hashCode(), holderClass, layoutRes);
   }
 
-  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes,
+  public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes,
       Object obj1) {
     return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, null, null);
   }
 
-  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes,
+  public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes,
       Object obj1, Object obj2) {
     return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, obj2, null);
   }
 
-  public <H extends AutoHolder> AutoAdapter setHolder(Class<H> holderClass, int layoutRes,
+  public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes,
       Object obj1, Object obj2, Object obj3) {
     return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, obj2, obj3);
   }
@@ -111,7 +111,7 @@ public class AutoAdapter extends RecyclerView.Adapter {
   //                               set data bean
   /////////////////////////////////////////////////////////////////////////
 
-  private <M> AutoAdapter setDataObject(int index, int type, M bean, int spanSize) {
+  private <M> AutoRecyclerAdapter setDataObject(int index, int type, M bean, int spanSize) {
     if (index < 0) {
       index = 0;
     }
@@ -120,38 +120,38 @@ public class AutoAdapter extends RecyclerView.Adapter {
     return this;
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataObject(Class<H> holderClass, M bean) {
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObject(Class<H> holderClass, M bean) {
     return setDataObject(packageList.size() - 1, holderClass.hashCode(), bean, 0);
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataObjectIndex(int index, Class<H> holderClass,
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectIndex(int index, Class<H> holderClass,
       M bean) {
     return setDataObject(index, holderClass.hashCode(), bean, 0);
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataObjectSpan(Class<H> holderClass, M bean,
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectSpan(Class<H> holderClass, M bean,
       int spanSize) {
     return setDataObject(packageList.size() - 1, holderClass.hashCode(), bean, spanSize);
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataObjectSpanIndex(int index,
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectSpanIndex(int index,
       Class<H> holderClass, M bean, int spanSize) {
     return setDataObject(index, holderClass.hashCode(), bean, spanSize);
   }
 
-  public <M> AutoAdapter setDataObject(int key, M bean) {
+  public <M> AutoRecyclerAdapter setDataObject(int key, M bean) {
     return setDataObject(packageList.size() - 1, key, bean, 0);
   }
 
-  public <M> AutoAdapter setDataObjectIndex(int index, int key, M bean) {
+  public <M> AutoRecyclerAdapter setDataObjectIndex(int index, int key, M bean) {
     return setDataObject(index, key, bean, 0);
   }
 
-  public <M> AutoAdapter setDataObjectSpan(int key, M bean, int spanSize) {
+  public <M> AutoRecyclerAdapter setDataObjectSpan(int key, M bean, int spanSize) {
     return setDataObject(packageList.size() - 1, key, bean, spanSize);
   }
 
-  public <M> AutoAdapter setDataObjectSpanIndex(int index, int key, M bean, int spanSize) {
+  public <M> AutoRecyclerAdapter setDataObjectSpanIndex(int index, int key, M bean, int spanSize) {
     return setDataObject(index, key, bean, spanSize);
   }
 
@@ -183,7 +183,7 @@ public class AutoAdapter extends RecyclerView.Adapter {
   //                               set data list
   /////////////////////////////////////////////////////////////////////////
 
-  private <M> AutoAdapter setDataList(int type, List<M> list, int spanSize) {
+  private <M> AutoRecyclerAdapter setDataList(int type, List<M> list, int spanSize) {
     if (list != null) {
       for (M bean : list) {
         AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
@@ -193,7 +193,7 @@ public class AutoAdapter extends RecyclerView.Adapter {
     return this;
   }
 
-  private <M> AutoAdapter setDataList(int index, int type, List<M> list, int spanSize) {
+  private <M> AutoRecyclerAdapter setDataList(int index, int type, List<M> list, int spanSize) {
     if (list != null) {
       for (int x = list.size() - 1; x >= 0; x--) {
         M bean = list.get(x);
@@ -204,38 +204,38 @@ public class AutoAdapter extends RecyclerView.Adapter {
     return this;
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataList(Class<H> holderClass, List<M> list) {
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataList(Class<H> holderClass, List<M> list) {
     return setDataList(holderClass.hashCode(), list, 0);
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataListIndex(int index, Class<H> holderClass,
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataListIndex(int index, Class<H> holderClass,
       List<M> list) {
     return setDataList(index, holderClass.hashCode(), list, 0);
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataListSpan(Class<H> holderClass, List<M> list,
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataListSpan(Class<H> holderClass, List<M> list,
       int spanSize) {
     return setDataList(holderClass.hashCode(), list, spanSize);
   }
 
-  public <H extends AutoHolder, M> AutoAdapter setDataListSpanIndex(int index, Class<H> holderClass,
+  public <H extends AutoHolder, M> AutoRecyclerAdapter setDataListSpanIndex(int index, Class<H> holderClass,
       List<M> list, int spanSize) {
     return setDataList(index, holderClass.hashCode(), list, spanSize);
   }
 
-  public <M> AutoAdapter setDataList(int type, List<M> list) {
+  public <M> AutoRecyclerAdapter setDataList(int type, List<M> list) {
     return setDataList(type, list, 0);
   }
 
-  public <M> AutoAdapter setDataListIndex(int index, int type, List<M> list) {
+  public <M> AutoRecyclerAdapter setDataListIndex(int index, int type, List<M> list) {
     return setDataList(index, type, list, 0);
   }
 
-  public <M> AutoAdapter setDataListSpan(int type, List<M> list, int spanSize) {
+  public <M> AutoRecyclerAdapter setDataListSpan(int type, List<M> list, int spanSize) {
     return setDataList(type, list, spanSize);
   }
 
-  public <M> AutoAdapter setDataListSpanIndex(int index, int type, List<M> list, int spanSize) {
+  public <M> AutoRecyclerAdapter setDataListSpanIndex(int index, int type, List<M> list, int spanSize) {
     return setDataList(index, type, list, spanSize);
   }
 

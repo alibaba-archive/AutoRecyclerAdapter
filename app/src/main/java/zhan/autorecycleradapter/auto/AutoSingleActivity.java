@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import java.util.List;
-import zhan.auto_adapter.AutoAdapter;
+import zhan.auto_adapter.AutoRecyclerAdapter;
 import zhan.autorecycleradapter.R;
 import zhan.autorecycleradapter.auto.holder.AutoSingleHolder;
 import zhan.autorecycleradapter.bean.ZhaoBean;
@@ -23,8 +23,8 @@ public class AutoSingleActivity extends AppCompatActivity {
     setContentView(R.layout.activity_recycler);
 
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-    AutoAdapter autoAdapter = new AutoAdapter();
-    recyclerView.setAdapter(autoAdapter);
+    AutoRecyclerAdapter autoRecyclerAdapter = new AutoRecyclerAdapter();
+    recyclerView.setAdapter(autoRecyclerAdapter);
 
     LinearLayoutManager manager =
         new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -32,11 +32,11 @@ public class AutoSingleActivity extends AppCompatActivity {
     recyclerView.setHasFixedSize(true);
 
     //set holder
-    autoAdapter.setHolder(AutoSingleHolder.class, R.layout.item_single);
+    autoRecyclerAdapter.setHolder(AutoSingleHolder.class, R.layout.item_single);
 
     //net work request data
     List<ZhaoBean> list = ModelHelper.getZhaoList(30);
 
-    autoAdapter.setDataList(AutoSingleHolder.class, list).notifyDataSetChanged();
+    autoRecyclerAdapter.setDataList(AutoSingleHolder.class, list).notifyDataSetChanged();
   }
 }

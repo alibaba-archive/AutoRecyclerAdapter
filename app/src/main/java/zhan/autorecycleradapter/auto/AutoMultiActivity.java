@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import java.util.List;
-import zhan.auto_adapter.AutoAdapter;
+import zhan.auto_adapter.AutoRecyclerAdapter;
 import zhan.autorecycleradapter.R;
 import zhan.autorecycleradapter.auto.holder.AutoBannerHolder;
 import zhan.autorecycleradapter.auto.holder.AutoTypeAHolder;
@@ -33,15 +33,15 @@ public class AutoMultiActivity extends AppCompatActivity implements SendListener
 
   private static final int SPAN_SIZE = 10;
 
-  private AutoAdapter autoAdapter;
+  private AutoRecyclerAdapter autoRecyclerAdapter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_recycler);
 
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-    autoAdapter = new AutoAdapter();
-    recyclerView.setAdapter(autoAdapter);
+    autoRecyclerAdapter = new AutoRecyclerAdapter();
+    recyclerView.setAdapter(autoRecyclerAdapter);
 
     //multi item need set SpanSize
     GridLayoutManager manager =
@@ -49,22 +49,22 @@ public class AutoMultiActivity extends AppCompatActivity implements SendListener
 
     manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
       @Override public int getSpanSize(int position) {
-        return autoAdapter.getSpanSize(position);
+        return autoRecyclerAdapter.getSpanSize(position);
       }
     });
     recyclerView.setLayoutManager(manager);
 
     //set holder
 
-    //autoAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner);
-    //autoAdapter.setHolder(AutoTypeAHolder.class, R.layout.item_type_a);
-    //autoAdapter.setHolder(AutoTypeBHolder.class, R.layout.item_type_b);
-    //autoAdapter.setHolder(AutoTypeCHolder.class, R.layout.item_type_c);
-    //autoAdapter.setHolder(AutoTypeDHolder.class, R.layout.item_type_d);
-    //autoAdapter.setHolder(AutoTypeEHolder.class, R.layout.item_type_e);
-    //autoAdapter.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
+    //autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner);
+    //autoRecyclerAdapter.setHolder(AutoTypeAHolder.class, R.layout.item_type_a);
+    //autoRecyclerAdapter.setHolder(AutoTypeBHolder.class, R.layout.item_type_b);
+    //autoRecyclerAdapter.setHolder(AutoTypeCHolder.class, R.layout.item_type_c);
+    //autoRecyclerAdapter.setHolder(AutoTypeDHolder.class, R.layout.item_type_d);
+    //autoRecyclerAdapter.setHolder(AutoTypeEHolder.class, R.layout.item_type_e);
+    //autoRecyclerAdapter.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 
-    autoAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
+    autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
         .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
         .setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
         .setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
@@ -83,16 +83,16 @@ public class AutoMultiActivity extends AppCompatActivity implements SendListener
 
     //set data
 
-    //autoAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE);
-    //autoAdapter.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5);
-    //autoAdapter.setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE);
-    //autoAdapter.setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2);
-    //autoAdapter.setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5);
-    //autoAdapter.setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE);
-    //autoAdapter.setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2);
-    //autoAdapter.notifyDataSetChanged();
+    //autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE);
+    //autoRecyclerAdapter.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5);
+    //autoRecyclerAdapter.setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE);
+    //autoRecyclerAdapter.setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2);
+    //autoRecyclerAdapter.setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5);
+    //autoRecyclerAdapter.setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE);
+    //autoRecyclerAdapter.setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2);
+    //autoRecyclerAdapter.notifyDataSetChanged();
 
-    autoAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
+    autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
         .setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
         .setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE)
         .setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2)
