@@ -8,18 +8,18 @@ AutoRecyclerAdapter
 
 >一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
 
+如何自动化配置？
+===============
+------
 
-## 如何让 RecyclerView.Adapter 自动化配置？
-
-
-**1. 首先，RecyclerView.Adapter有哪些方法需要开发者去自己实现？**
+## 1. 首先，RecyclerView.Adapter有哪些方法需要开发者去自己实现
 
 * getItemViewType方法，为Adapter区分多种Holder类型的标记。
 * onCreateViewHolder方法，为Adapter创建多种Holder对象。创建多种类型依赖getItemViewType方法。
 * onBindViewHolder方法，为Adapter的多种Holder对象设置数据。
 * getItemCount方法，为Adapter设置条目个数。
 
-**一种标准的RecyclerView.Adapter作为范例:**
+###一种标准的RecyclerView.Adapter作为范例:
 
 ```java
 
@@ -38,7 +38,7 @@ AutoRecyclerAdapter
 	private List<Object> data = new ArrayList<>();
 ```
 
-getItemViewType:
+**getItemViewType(int position)**
 
 ```java
 
@@ -63,7 +63,7 @@ getItemViewType:
 	}
 ```
 
-onCreateViewHolder:
+**onCreateViewHolder(ViewGroup parent, int viewType)**
 
 ```java
 
@@ -95,33 +95,34 @@ onCreateViewHolder:
 	}
 ```
 
-onBindViewHolder:
+**onBindViewHolder(RecyclerView.ViewHolder holder, int position)**
 
 ```java
 
-	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-	int viewType = getItemViewType(position);
-	
-	if (viewType == TYPE_ZHAO) {
-	  ((BannerHolder) holder).bind(position, (ZhaoBean) data.get(position));
-	} else if (viewType == TYPE_QIAN) {
-	  ((TypeAHolder) holder).bind(position, (QianBean) data.get(position));
-	} else if (viewType == TYPE_SUN) {
-	  ((TypeBHolder) holder).bind(position, (SunBean) data.get(position));
-	} else if (viewType == TYPE_LI) {
-	  ((TypeCHolder) holder).bind(position, (LiBean) data.get(position));
-	} else if (viewType == TYPE_ZHOU) {
-	  ((TypeDHolder) holder).bind(position, (ZhouBean) data.get(position));
-	} else if (viewType == TYPE_WU) {
-	  ((TypeEHolder) holder).bind(position, (WuBean) data.get(position));
-	} else if (viewType == TYPE_ZHENG) {
-	  ((TypeFHolder) holder).bind(position, (ZhengBean) data.get(position));
-	}
-	}
+  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    Object object = data.get(position);
+    int viewType = getItemViewType(position);
+
+    if (viewType == TYPE_ZHAO) {
+      ((BannerHolder) holder).bind(position, (ZhaoBean) object);
+    } else if (viewType == TYPE_QIAN) {
+      ((TypeAHolder) holder).bind(position, (QianBean) object);
+    } else if (viewType == TYPE_SUN) {
+      ((TypeBHolder) holder).bind(position, (SunBean) object);
+    } else if (viewType == TYPE_LI) {
+      ((TypeCHolder) holder).bind(position, (LiBean) object);
+    } else if (viewType == TYPE_ZHOU) {
+      ((TypeDHolder) holder).bind(position, (ZhouBean) object);
+    } else if (viewType == TYPE_WU) {
+      ((TypeEHolder) holder).bind(position, (WuBean) object);
+    } else if (viewType == TYPE_ZHENG) {
+      ((TypeFHolder) holder).bind(position, (ZhengBean) object);
+    }
+  }
 ```
 
 
-getItemCount:
+**getItemCount()**
 
 ```java
 
@@ -131,7 +132,7 @@ getItemCount:
 ```
 
 
-setSpanSizeLookup的getSpanSize，为了方便我也写到Adapter里了:
+**setSpanSizeLookup的getSpanSize(int position)，**为了方便我也写到Adapter里了:
 
 ```java
 
@@ -162,7 +163,7 @@ setSpanSizeLookup的getSpanSize，为了方便我也写到Adapter里了:
 1.为什么Adapter使用的List泛型为Object？
 
 
->为了让Adapter代码达到简洁，这里使用了万物皆对象的形式，position与model一一对应，需要时在类型转换。
+>为了让Adapter代码达到简洁，position与model一一对应，达到万物皆对象的形式。意思是想要添加新的holder，必须往List添加model。object类型的model需要时在类型转换。
 
 
 2.Adapter使用了List泛型为Object，会出现类型转换异常吗？
@@ -184,7 +185,7 @@ setSpanSizeLookup的getSpanSize，为了方便我也写到Adapter里了:
 如果对上面较为标准的RecyclerView.Adapter写法不存在疑问了，接下来我们来**尝试干掉一些if与else**
 
 
-**2. 干掉一些RecyclerView.Adapter里的if与else**
+## 2. 干掉一些RecyclerView.Adapter里的if与else
 
 
 * getItemViewType(int position)
@@ -193,7 +194,7 @@ setSpanSizeLookup的getSpanSize，为了方便我也写到Adapter里了:
 为什么选择这两个方法？因为它们代码结构比较简单
 
 
-**怎么干掉？**
+###怎么干掉？
 
 看到上面两个方法里给的现成的参数了吗？对，就是position。
 
@@ -207,9 +208,9 @@ Adapter里的List泛型Object，保证了position就对应着一个model，这�
 这样我们就可以通过data.get(position).getType()拿到type给getItemViewType，getSpanSize也是同理的。
 
 
-**2-1 添加两个字段:type与spanSize**
+## 2-1 添加两个字段:type与spanSize
 
-为每一个model都添加两个字段？工作量是不是有点大。。。那用继承的形式怎么样？
+为每一个model都添加两个字段，或者考虑使用继承的形式
 
 
 MultiType:
@@ -224,7 +225,7 @@ MultiType:
 ```
 
 
-来个model集成MultiType，ZhaoMultiBean:
+model集成MultiType，例如：ZhaoMultiBean:
 
 
 ```java
@@ -233,10 +234,10 @@ MultiType:
 ```
 
 
-这样model里就有type与spanSize了，外面设置好就行了。
+这样model里就有type与spanSize了，可以设置type与spanSize了。
 
 
-**2-2 添加两个字段:type与spanSize后的RecyclerView.Adapter**
+## 2-2 添加两个字段:type与spanSize后的RecyclerView.Adapter
 
 
 List泛型Object变为MultiType，为了使用type与spanSize:
@@ -262,7 +263,7 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 ```
 
 
-更新后的getSpanSizee:
+更新后的getSpanSize:
 
 
 ```java
@@ -290,7 +291,7 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 
 
 
-**3. 继续干掉一些RecyclerView.Adapter里的if与else**
+## 3. 继续干掉一些RecyclerView.Adapter里的if与else
 
 
 * onBindViewHolder(RecyclerView.ViewHolder holder, int position)
@@ -299,7 +300,7 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 为什么选这个，因为我看到它给了position的参数，和getItemViewType给的一样。。。
 
 
-**怎么干掉？**
+###怎么干掉？
 
 Holder是根据不同的ViewType创建出来的，每一个Holder所需要的model都不一样。
 
@@ -328,12 +329,14 @@ Holder是根据不同的ViewType创建出来的，每一个Holder所需要的mod
 
 ```java
 		
-	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-	if(holder instanceof MultiHolder) {
-	  MultiHolder multiHolder = (MultiHolder) holder;
-	  multiHolder.bind(position, data.get(position));
-	}
-	}
+  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    MultiType multiType = data.get(position);
+    
+    if(holder instanceof MultiHolder) {
+      MultiHolder multiHolder = (MultiHolder) holder;
+      multiHolder.bind(position, multiType);
+    }
+  }
 ```
 
 通过position获取到一个对象MultiType，通过Holder的bind方法传递进去，而Holder里bind参数是填写泛型的，这样就达到自动强转的目的了
@@ -341,22 +344,24 @@ Holder是根据不同的ViewType创建出来的，每一个Holder所需要的mod
 酱紫onBindViewHolder的if与else被干掉了
 
 
-**4. 最后，干掉onCreateViewHolder(ViewGroup parent, int viewType)里的if与else**
+## 4. 最后，干掉onCreateViewHolder(ViewGroup parent, int viewType)里的if与else
 
 
-onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，显然Holder与viewType存在键值对的关系：key:viewType，value:ViewHolder对象。
+onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，显然Holder与viewType存在键值对的关系：**key:viewType，value:ViewHolder对象。**
 
 
 如何消灭掉if与else呢，或者说如何在外面配置根据viewType创建不同的ViewHolder呢？
 
 
-批量创建不同的对象，而且创建对象的个数无法确定。
+**如何批量创建不同的对象？而且创建对象的个数是无法确定的。**
 
 
 这里，我打算使用**字节码+反射**的方式解决这个问题。
 
+使用键值对的形式，key: viewType，value：holder.class，这样是不是可以通过反射字节码，创建不同的对象，想创建多少就创建多少？
 
-**4-1. 设计反射创建Holder对象需要的model**
+
+## 4-1. 设计反射创建Holder对象需要的model
 
 创建一个Holder需要哪些？
 
@@ -419,18 +424,20 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 
 **敲黑板了，注意：Holder.class的viewType要和model设置的viewType对应上**
 
-所以，使用Holder.class.hashCode()作为viewType很合适。
+所以，使用Holder.class.hashCode()作为viewType更合适。
 
 
 **现在，已经消灭了RecyclerView.Adapter里面的if与else了。。。**
 
 
-新的问题来了：
+###新的问题来了：
 
 
-## 如何简单，优雅的使用？
+如何简单，优雅的使用？
+===============
+------
 
-消灭所有if与else之后，存在的问题:
+###消灭所有if与else之后，存在的问题:
 
 * 对每一个model都手动设置type与spanSize，写了很多重复繁琐的代码
 * Holder通过字节码动态创建，如果Holder需要额外的参数如何传递给它
@@ -439,7 +446,7 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 * 解决了旧的问题，是否出现了一些新的问题
 
 
-**5-1. 对每一个model都手动设置type与spanSize，写了很多重复繁琐的代码**
+## 5-1. 对每一个model都手动设置type与spanSize，写了很多重复繁琐的代码
 
 之前是这样的：
 
@@ -495,7 +502,7 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 不用在对model设置type和其他处理了，保证了model的纯正。
 
 
-**5-2. Holder通过字节码动态创建，如果Holder需要额外的参数如何传递给它**
+## 5-2. Holder通过字节码动态创建，如果Holder需要额外的参数如何传递给它
 
 目前为父类AutoHolder增加三个参数，全部为Object类型，在Adapter设置Holder字节码时，可传递任意对象，传递到AutoHolder中。
 
@@ -552,7 +559,7 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 	autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
 ```
 
-**5-3. 如何简单，优雅的设置**
+## 5-3. 如何简单，优雅的使用？
 
 
 以一个Adapter需要多种Holder为例：
@@ -603,7 +610,7 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 尽量做到使用简单，优雅了。。。
 
 
-**5-4. 解决了旧的问题，是否出现了一些新的问题**
+## 5-4. 解决了旧的问题，是否出现了一些新的问题
 
 * Adapter的List，数据存储顺序决定视图呈现的顺序。List相对封闭，目前add与remove没问题，但是想要查找List某一个model，比较其中一个，处理的还不行
 * 使用上和原来的Adapter不一样了，没办法，外面配置就好了，不用自己手动写一大推if与else了

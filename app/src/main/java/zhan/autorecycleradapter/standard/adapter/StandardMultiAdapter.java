@@ -100,22 +100,23 @@ public class StandardMultiAdapter extends RecyclerView.Adapter {
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    Object object = data.get(position);
     int viewType = getItemViewType(position);
 
     if (viewType == TYPE_ZHAO) {
-      ((BannerHolder) holder).bind(position, (ZhaoBean) data.get(position));
+      ((BannerHolder) holder).bind(position, (ZhaoBean) object);
     } else if (viewType == TYPE_QIAN) {
-      ((TypeAHolder) holder).bind(position, (QianBean) data.get(position));
+      ((TypeAHolder) holder).bind(position, (QianBean) object);
     } else if (viewType == TYPE_SUN) {
-      ((TypeBHolder) holder).bind(position, (SunBean) data.get(position));
+      ((TypeBHolder) holder).bind(position, (SunBean) object);
     } else if (viewType == TYPE_LI) {
-      ((TypeCHolder) holder).bind(position, (LiBean) data.get(position));
+      ((TypeCHolder) holder).bind(position, (LiBean) object);
     } else if (viewType == TYPE_ZHOU) {
-      ((TypeDHolder) holder).bind(position, (ZhouBean) data.get(position));
+      ((TypeDHolder) holder).bind(position, (ZhouBean) object);
     } else if (viewType == TYPE_WU) {
-      ((TypeEHolder) holder).bind(position, (WuBean) data.get(position));
+      ((TypeEHolder) holder).bind(position, (WuBean) object);
     } else if (viewType == TYPE_ZHENG) {
-      ((TypeFHolder) holder).bind(position, (ZhengBean) data.get(position));
+      ((TypeFHolder) holder).bind(position, (ZhengBean) object);
     }
   }
 

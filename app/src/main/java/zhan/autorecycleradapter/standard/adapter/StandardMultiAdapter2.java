@@ -87,11 +87,13 @@ public class StandardMultiAdapter2 extends RecyclerView.Adapter {
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    MultiType multiType = data.get(position);
+
     if(holder instanceof MultiHolder) {
       MultiHolder multiHolder = (MultiHolder) holder;
-      multiHolder.bind(position, data.get(position));
+      multiHolder.bind(position, multiType);
     }
-  }
+  } 
 
   @Override public int getItemCount() {
     return data == null ? 0 : data.size();
