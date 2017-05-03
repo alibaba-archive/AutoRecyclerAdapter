@@ -31,12 +31,8 @@ Usage
 
 -----
 
-![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/auto01.png)
+![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/auto.png)
 
------
-
-
-![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/auto02.png)
 
 
 1, 设置7种ViewHolder，ViewHolder支持设置额外参数
