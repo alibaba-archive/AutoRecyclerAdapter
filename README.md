@@ -40,14 +40,14 @@ Usage
 ```java
 
   autoRecyclerAdapter = new AutoRecyclerAdapter();
-  manager.setSpanSizeLookup(new 							GridLayoutManager.SpanSizeLookup() {
+  manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
   @Override public int getSpanSize(int position) {
   return autoRecyclerAdapter.getSpanSize(position);
   }
   });
 
 
-  autoRecyclerAdapter.setHolder(AutoBannerHolder.class, 	R.layout.item_banner, this)
+  autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
   .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
   .setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
   .setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
