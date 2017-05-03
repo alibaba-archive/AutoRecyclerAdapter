@@ -3,10 +3,10 @@ AutoRecyclerAdapter
 ===============
 
 >我在写大量重复RecyclerView.Adapter的时候，发现我的大部分时间都花在写重复，机械式的if与else，不论是getItemViewType，onCreateViewHolder，onBindViewHolder还是setSpanSizeLookup的getSpanSize，都充斥着大量的if与else
->
-写重复的代码一直困扰着我
->
-一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
+
+>写重复的代码一直困扰着我
+
+>一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
 
 
 
@@ -47,7 +47,7 @@ Usage
 
 
 
-1, 设置7种ViewHolder，ViewHolder支持设置额外参数
+**1, 设置7种ViewHolder，ViewHolder支持设置额外参数**
 
 ```java
 
@@ -68,9 +68,7 @@ Usage
   .setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 ```
 
-2, 先网络请求数据，成功回来先
-
-3, 设置网络请求得到的7种不同List
+**2, 设置网络请求得到的7种不同List**
 
 ```java
 
@@ -84,7 +82,10 @@ Usage
   .notifyDataSetChanged();
 ```
 
-PS：自定义的ViewHolder需要继承AutoHolder，并填写需要的model作为泛型:
+Other
+------
+
+**自定义的ViewHolder需要继承AutoHolder，并填写需要的model作为泛型**
 
 ```java
 
@@ -110,6 +111,54 @@ PS：自定义的ViewHolder需要继承AutoHolder，并填写需要的model作�
   }
 ```
 
+**自动化创建ViewHolder**
+
+```java
+
+	@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+	AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
+	
+	int holderLayoutRes = holderPackage.getHolderLayoutRes();
+	View itemView =
+	LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
+	Class holderClass = holderPackage.getHolderClass();
+	
+	Constructor constructor = holderClass.getConstructor(View.class);
+	AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView);
+	
+	return autoHolder;
+```
+
+**自动化bind ViewHolder**
+
+```java
+
+	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+		if (holder instanceof AutoHolder) {
+		AutoHolder autoHolder = (AutoHolder) holder;
+		Object bean = packageList.get(position).getAutoPackage();
+		autoHolder.bind(position, bean);
+		}
+	}
+```
+
+**ViewType与SpanSize**
+
+```java
+
+	@Override public int getItemViewType(int position) {
+	return packageList.get(position).getType();
+	}
+	
+	
+	public int getSpanSize(int position) {
+	return packageList.get(position).getSpanSize();
+	}
+	
+	@Override public int getItemCount() {
+	return packageList.size();
+	}
+```
 
 Class
 ------
