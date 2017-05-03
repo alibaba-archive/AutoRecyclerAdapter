@@ -19,7 +19,7 @@ AutoRecyclerAdapter
 * onBindViewHolder方法，为Adapter的多种Holder对象设置数据。
 * getItemCount方法，为Adapter设置条目个数。
 
-###一种标准的RecyclerView.Adapter作为范例:
+### 一种标准的RecyclerView.Adapter作为范例:
 
 ```java
 
@@ -132,7 +132,7 @@ AutoRecyclerAdapter
 ```
 
 
-**setSpanSizeLookup的getSpanSize(int position)，**为了方便我也写到Adapter里了:
+**setSpanSizeLookup的getSpanSize(int position)** 为了方便我也写到Adapter里了:
 
 ```java
 
@@ -194,7 +194,7 @@ AutoRecyclerAdapter
 为什么选择这两个方法？因为它们代码结构比较简单
 
 
-###怎么干掉？
+### 怎么干掉？
 
 看到上面两个方法里给的现成的参数了吗？对，就是position。
 
@@ -300,7 +300,7 @@ List泛型Object变为MultiType，为了使用type与spanSize:
 为什么选这个，因为我看到它给了position的参数，和getItemViewType给的一样。。。
 
 
-###怎么干掉？
+### 怎么干掉？
 
 Holder是根据不同的ViewType创建出来的，每一个Holder所需要的model都不一样。
 
@@ -430,14 +430,14 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 **现在，已经消灭了RecyclerView.Adapter里面的if与else了。。。**
 
 
-###新的问题来了：
+### 新的问题来了：
 
 
 如何简单，优雅的使用？
 ===============
 ------
 
-###消灭所有if与else之后，存在的问题:
+### 消灭所有if与else之后，存在的问题:
 
 * 对每一个model都手动设置type与spanSize，写了很多重复繁琐的代码
 * Holder通过字节码动态创建，如果Holder需要额外的参数如何传递给它
