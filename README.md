@@ -2,11 +2,25 @@
 AutoRecyclerAdapter
 ===============
 
->我在写大量重复RecyclerView.Adapter的时候，发现我的大部分时间都花在写重复，机械式的if与else，不论是getItemViewType，onCreateViewHolder，onBindViewHolder还是setSpanSizeLookup的getSpanSize，都充斥着大量的if与else。
+>我在写大量重复RecyclerView.Adapter的时候，发现我的大部分时间都花在写重复，机械式的if与else，不论是getItemViewType，onCreateViewHolder，onBindViewHolder还是setSpanSizeLookup的getSpanSize，都充斥着大量的if与else
+>
+写重复的代码一直困扰着我
+>
+一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
 
->写重复的代码一直困扰着我。。。
 
->一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
+
+AutoRecyclerAdapter是一个接近万能的Adapter，它把Recycler.Adapter里开发者需要手写的方法全部自动化，配置化。开发者只需要在外部配置Holder与model就能使用，不必重新自定义Adapter。复杂的多种类型Holder布局也不例外。能够快速的实现像淘宝，京东等首页复杂，多类型的布局。
+
+### 设计AutoRecyclerAdapter的目的：化繁为简，化整为零，帮助开发者不再实现Recycler.Adapter
+
+
+Screenshots
+------
+
+![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/autos.gif)
+![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/tb.png)
+![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/jd.png)
 
 
 
@@ -14,20 +28,18 @@ AutoRecyclerAdapter
 
 * 使用字节码＋反射动态创建ViewHolder
 * 使用ViewHolder.class.hashCode() 作为ViewType
-* model与ViewType，spanSize建立联系，不再是model添加新字段或者继承这些入侵手段
-* ViewHolder泛型定义，动态获取需要的数据模型（model）来设置布局
-* ViewHolder创建可设置额外参数，与Activity，fragment等建立通信
+* model与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
+* ViewHolder泛型定义，动态获取需要的数据模型（model）自动类型转换
+* ViewHolder创建可设置额外参数，支持与Activity，fragment等建立通信
 
-
-
-**这个库到底行不行？出来走两步就知道了**
 
 Usage
 -----
 
-现在，以一个拥有**7个**不同的ViewHolder的界面为例，很多商城首页的布局样式：
+以一个拥有**7个**不同的ViewHolder的界面为例，类似很多商城首页的布局
 
-服务器传来7种不同的List集合，需要设计7种不同的ViewHolder，看下面
+模拟服务器传来7种不同的List集合，需要设计7种不同的ViewHolder
+
 
 -----
 
@@ -84,28 +96,37 @@ PS：自定义的ViewHolder需要继承AutoHolder，并填写需要的model作�
   super(itemView, obj1, obj2, obj3);
   iv = (ImageView) itemView.findViewById(R.id.banner_iv);
   itemView.setOnClickListener(this);
-  }
+  	}
 
   @Override public void bind(int position, ZhaoBean bean) {
   iv.setImageResource(bean.getIcon());
-  }
+  	}
 
   @Override public void onClick(View v) {
   if(obj1 instanceof SendListener) {
   ((SendListener)obj1).send();
-  }
-  }
+ 	 	}
+ 	 }
   }
 ```
 
-### 想知道从零创建这个自动化配置的Adapter过程，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
 
-**具体细节请查看工程里的例子**
+Class
+------
 
-[![](https://jitpack.io/v/ruzhan123/AutoRecyclerAdapter.svg)](https://jitpack.io/#ruzhan123/AutoRecyclerAdapter)
+ <ul>
+   	<li><a href='javascript:'>AutoRecyclerAdapter</a></li>
+   	<li><a href='javascript:'>AutoHolder</a></li>
+   	<li><a href='javascript:'>AutoPackage</a></li>
+   	<li><a href='javascript:'>AutoHolderPackage</a></li>
+ </ul>
+
 
 Gradle
 ------
+
+
+[![](https://jitpack.io/v/ruzhan123/AutoRecyclerAdapter.svg)](https://jitpack.io/#ruzhan123/AutoRecyclerAdapter)
 
 Add it in your root build.gradle at the end of repositories:
 
@@ -130,11 +151,13 @@ Add the dependency:
 	}
 ```
 
+### 想了解具体设计细节，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
 
 Developed by
 -------
 
  ruzhan - <a href='javascript:'>dev19921116@gmail.com</a>
+
 
 
 License
