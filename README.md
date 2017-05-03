@@ -51,35 +51,35 @@ Usage
 
 ```java
 
-  autoRecyclerAdapter = new AutoRecyclerAdapter();
-  manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-  @Override public int getSpanSize(int position) {
-  return autoRecyclerAdapter.getSpanSize(position);
-  }
-  });
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+	@Override public int getSpanSize(int position) {
+	return autoRecyclerAdapter.getSpanSize(position);
+	}
+	});
 
 
-  autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
-  .setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
-  .setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
-  .setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
-  .setHolder(AutoTypeDHolder.class, R.layout.item_type_d)
-  .setHolder(AutoTypeEHolder.class, R.layout.item_type_e)
-  .setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
+	autoRecyclerAdapter.setHolder(AutoBannerHolder.class, R.layout.item_banner, this)
+	.setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
+	.setHolder(AutoTypeBHolder.class, R.layout.item_type_b)
+	.setHolder(AutoTypeCHolder.class, R.layout.item_type_c)
+	.setHolder(AutoTypeDHolder.class, R.layout.item_type_d)
+	.setHolder(AutoTypeEHolder.class, R.layout.item_type_e)
+	.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 ```
 
 **2, 设置网络请求得到的7种不同List**
 
 ```java
 
- autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
-  .setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
-  .setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE)
-  .setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2)
-  .setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5)
-  .setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE)
-  .setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2)
-  .notifyDataSetChanged();
+	autoRecyclerAdapter.setDataListSpan(AutoBannerHolder.class, zhaoList, SPAN_SIZE)
+	.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
+	.setDataListSpan(AutoTypeBHolder.class, sunList, SPAN_SIZE)
+	.setDataListSpan(AutoTypeCHolder.class, liList, SPAN_SIZE / 2)
+	.setDataListSpan(AutoTypeDHolder.class, zhouList, SPAN_SIZE / 5)
+	.setDataListSpan(AutoTypeEHolder.class, wuList, SPAN_SIZE)
+	.setDataListSpan(AutoTypeFHolder.class, zhengList, SPAN_SIZE / 2)
+	.notifyDataSetChanged();
 ```
 
 Other
@@ -89,26 +89,26 @@ Other
 
 ```java
 
-  public class AutoBannerHolder extends AutoHolder<ZhaoBean> implements View.OnClickListener {
-
-  private ImageView iv;
-
-  public AutoBannerHolder(View itemView, Object obj1, Object obj2, Object obj3) {
-  super(itemView, obj1, obj2, obj3);
-  iv = (ImageView) itemView.findViewById(R.id.banner_iv);
-  itemView.setOnClickListener(this);
-  	}
-
-  @Override public void bind(int position, ZhaoBean bean) {
-  iv.setImageResource(bean.getIcon());
-  	}
-
-  @Override public void onClick(View v) {
-  if(obj1 instanceof SendListener) {
-  ((SendListener)obj1).send();
- 	 	}
- 	 }
-  }
+	public class AutoBannerHolder extends AutoHolder<ZhaoBean> implements View.OnClickListener {
+	
+	private ImageView iv;
+	
+	public AutoBannerHolder(View itemView, Object obj1, Object obj2, Object obj3) {
+		super(itemView, obj1, obj2, obj3);
+		iv = (ImageView) itemView.findViewById(R.id.banner_iv);
+		itemView.setOnClickListener(this);
+	}
+	
+	@Override public void bind(int position, ZhaoBean bean) {
+		iv.setImageResource(bean.getIcon());
+	}
+	
+	@Override public void onClick(View v) {
+		if(obj1 instanceof SendListener) {
+			((SendListener)obj1).send();
+	  		}
+	 	}
+	}
 ```
 
 **自动化创建ViewHolder**
@@ -135,9 +135,9 @@ Other
 
 	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 		if (holder instanceof AutoHolder) {
-		AutoHolder autoHolder = (AutoHolder) holder;
-		Object bean = packageList.get(position).getAutoPackage();
-		autoHolder.bind(position, bean);
+			AutoHolder autoHolder = (AutoHolder) holder;
+			Object bean = packageList.get(position).getAutoPackage();
+			autoHolder.bind(position, bean);
 		}
 	}
 ```
@@ -147,16 +147,16 @@ Other
 ```java
 
 	@Override public int getItemViewType(int position) {
-	return packageList.get(position).getType();
+		return packageList.get(position).getType();
 	}
 	
 	
 	public int getSpanSize(int position) {
-	return packageList.get(position).getSpanSize();
+		return packageList.get(position).getSpanSize();
 	}
 	
 	@Override public int getItemCount() {
-	return packageList.size();
+		return packageList.size();
 	}
 ```
 
