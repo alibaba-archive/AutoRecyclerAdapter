@@ -614,4 +614,5 @@ onCreateViewHolder方法中创建不同的对象是根据viewType来判断的，
 
 * Adapter的List，数据存储顺序决定视图呈现的顺序。List相对封闭，目前add与remove没问题，但是想要查找List某一个model，比较其中一个，处理的还不行
 * 使用上和原来的Adapter不一样了，没办法，外面配置就好了，不用自己手动写一大推if与else了
+* 由于创建holder使用了字节码反射，当holder构造器里代码报错，错误的代码难以定位。
 * AutoRecyclerAdapter并没有长时间的进行测试，还需要慢慢使用，不断调整。
