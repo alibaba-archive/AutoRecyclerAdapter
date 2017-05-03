@@ -112,16 +112,19 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
   /////////////////////////////////////////////////////////////////////////
 
   private <M> AutoRecyclerAdapter setDataObject(int index, int type, M bean, int spanSize) {
-    if (index < 0) {
-      index = 0;
-    }
     AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
     packageList.add(index, autoPackage);
     return this;
   }
 
+  private <M> AutoRecyclerAdapter setDataObject(int type, M bean, int spanSize) {
+    AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
+    packageList.add(autoPackage);
+    return this;
+  }
+
   public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObject(Class<H> holderClass, M bean) {
-    return setDataObject(packageList.size() - 1, holderClass.hashCode(), bean, 0);
+    return setDataObject(holderClass.hashCode(), bean, 0);
   }
 
   public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectIndex(int index, Class<H> holderClass,
@@ -131,7 +134,7 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
 
   public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectSpan(Class<H> holderClass, M bean,
       int spanSize) {
-    return setDataObject(packageList.size() - 1, holderClass.hashCode(), bean, spanSize);
+    return setDataObject(holderClass.hashCode(), bean, spanSize);
   }
 
   public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectSpanIndex(int index,
@@ -140,7 +143,7 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
   }
 
   public <M> AutoRecyclerAdapter setDataObject(int key, M bean) {
-    return setDataObject(packageList.size() - 1, key, bean, 0);
+    return setDataObject(key, bean, 0);
   }
 
   public <M> AutoRecyclerAdapter setDataObjectIndex(int index, int key, M bean) {
@@ -148,7 +151,7 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
   }
 
   public <M> AutoRecyclerAdapter setDataObjectSpan(int key, M bean, int spanSize) {
-    return setDataObject(packageList.size() - 1, key, bean, spanSize);
+    return setDataObject(key, bean, spanSize);
   }
 
   public <M> AutoRecyclerAdapter setDataObjectSpanIndex(int index, int key, M bean, int spanSize) {
