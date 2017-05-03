@@ -10,7 +10,7 @@ AutoRecyclerAdapter
 
 
 
-### 自动化配置Recycler.Adapter
+## 自动化配置Recycler.Adapter
 
 * 使用字节码＋反射动态创建ViewHolder
 * 使用ViewHolder.class.hashCode() 作为ViewType
@@ -98,7 +98,7 @@ PS：自定义的ViewHolder需要继承AutoHolder，并填写需要的model作�
   }
 ```
 
-###想知道从零创建这个自动化配置的Adapter过程，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
+### 想知道从零创建这个自动化配置的Adapter过程，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
 
 **具体细节请查看工程里的例子**
 
