@@ -40,7 +40,6 @@ Usage
 
 模拟服务器传来7种不同的List集合，需要设计7种不同的ViewHolder
 
-
 -----
 
 ![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/auto.png)
@@ -163,12 +162,10 @@ Other
 Class
 ------
 
- <ul>
-   	<li><a href='javascript:'>AutoRecyclerAdapter</a></li>
-   	<li><a href='javascript:'>AutoHolder</a></li>
-   	<li><a href='javascript:'>AutoPackage</a></li>
-   	<li><a href='javascript:'>AutoHolderPackage</a></li>
- </ul>
+* [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java)
+* [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java)
+* [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java)
+* [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java)
 
 
 Gradle
@@ -217,9 +214,9 @@ License
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
         http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
