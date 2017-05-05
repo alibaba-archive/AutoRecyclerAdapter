@@ -18,6 +18,7 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
 
   protected List<AutoPackage> packageList = new ArrayList<>();
   protected SparseArray<AutoHolderPackage> holderPackageMap = new SparseArray<>();
+  private SparseArray<Constructor> holderConstructorMap = new SparseArray<>();
   protected List<AutoHolder> holderList = new ArrayList<>();
 
   @Override public int getItemViewType(int position) {
@@ -39,7 +40,11 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
     Object obj2 = holderPackage.getObj2();
     Object obj3 = holderPackage.getObj3();
     try {
-      Constructor constructor = holderClass.getConstructor(View.class, Object.class, Object.class, Object.class);
+      Constructor constructor = holderConstructorMap.get(viewType);
+      if(constructor == null) {
+        constructor = holderClass.getConstructor(View.class, Object.class, Object.class, Object.class);
+        holderConstructorMap.put(viewType, constructor);
+      }
       AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView, obj1, obj2, obj3);
 
       holderList.add(autoHolder);
