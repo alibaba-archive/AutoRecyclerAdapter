@@ -254,4 +254,8 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
   public List<AutoHolder> getHolderList() {
     return holderList;
   }
+
+  public void clear() {
+    packageList.clear();
+  }
 }
