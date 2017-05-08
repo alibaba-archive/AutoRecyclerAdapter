@@ -255,7 +255,15 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
     return holderList;
   }
 
+  public List<AutoPackage> getData() {
+    return packageList;
+  }
+
   public void clear() {
     packageList.clear();
+  }
+
+  public void clearHolder() {
+    holderList.clear();
   }
 }
