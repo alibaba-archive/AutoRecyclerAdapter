@@ -193,7 +193,7 @@ Add the dependency:
 ```java
 
 	dependencies {
-	        compile 'com.github.ruzhan123:AutoRecyclerAdapter:v1.0'
+	        compile 'com.github.ruzhan123:AutoRecyclerAdapter:v1.3'
 	}
 ```
 
