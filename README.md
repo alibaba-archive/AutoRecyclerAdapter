@@ -13,9 +13,10 @@ AutoRecyclerAdapter
 
 * 使用字节码＋反射动态创建ViewHolder
 * 使用ViewHolder.class.hashCode() 作为ViewType
-* model与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
-* ViewHolder泛型定义，动态获取需要的数据模型（model）自动类型转换
-* ViewHolder创建可设置额外参数，支持与Activity，fragment等建立通信
+* 使用包装类与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
+* ViewHolder泛型定义，动态获取需要的数据模型（model）
+* ViewHolder创建可设置额外参数，支持传递对象或者Listener
+* 支持使用GridLayoutManager setSpanSizeLookup，创建复杂的排列方式
 
 ---
 
@@ -49,7 +50,7 @@ Usage
 
 
 
-**1, 设置7种ViewHolder，使用Holder.class.hashCode()作为Type**
+**1, 设置7种ViewHolder，使用Holder.class.hashCode()作为ViewType**
 
 ```java
 
@@ -83,7 +84,7 @@ Usage
 	List<ZhengBean> zhengList = ModelHelper.getZhengList(30);
 ```
 
-**3,  为7种不同的ViewHolder设置数据，使用Holder.class.hashCode()作为Type**
+**3,  为7种不同的ViewHolder设置数据，使用Holder.class.hashCode()作为ViewType**
 
 ```java
 
