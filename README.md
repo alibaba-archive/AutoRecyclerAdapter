@@ -8,13 +8,11 @@ AutoRecyclerAdapter
 
 >One day，I decided RecyclerView.Adapter use all **if and else** wipe out，let RecyclerView.Adapter Automated configuration.
 
----
+
 
 ## [中文文档](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/README_CH.md)
 
-## AutoRecyclerAdapter
-
-* Use ViewHolder.class ＋ reflect dynamic create ViewHolder
+* Use ViewHolder.class and reflect dynamic create ViewHolder
 * Use ViewHolder.class.hashCode()  as RecyclerVew.Adapter ViewType
 * Use package class to ViewType，spanSize build connection，Is no longer create field or extend class
 * Use AutoHolder，dynamic set model
@@ -23,7 +21,7 @@ AutoRecyclerAdapter
 
 ---
 
-**AutoRecyclerAdapter let Recycler.Adapter all methods Automated configuration. developer need outside outSize config ViewHolder and Data. No need custom Recycler.Adapter. Stand by create complex arrangement and fast create like shopping app home page layout**
+**AutoRecyclerAdapter let Recycler. Adapter all methods Automated configuration.  developer need outside outSize config ViewHolder and Data. No need custom Recycler.Adapter. Stand by create complex arrangement and fast create like shopping app home page layout**
 
 ### Aim of design：Simplify，help developer no custom Recycler.Adapter
 
@@ -43,7 +41,7 @@ Screenshots
 Usage
 -----
 
-To one exist **seven** different ViewHolder page as example，like shopping app home page layout.
+To one exist **seven** different ViewHolder page as example，like shopping app home page layout
 
 Seven different List set up to seven different ViewHolder
 
