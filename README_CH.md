@@ -2,30 +2,27 @@
 AutoRecyclerAdapter
 ===============
 
->I'm writing a lot of repetition RecyclerView.Adapter，I feel most of the time write repeat **if and else**，like getItemViewType，onCreateViewHolder，onBindViewHolder and setSpanSizeLookup getSpanSize，exist a lot of **if and else**
+>我在写大量重复RecyclerView.Adapter的时候，发现我的大部分时间都花在写重复，机械式的if与else，不论是getItemViewType，onCreateViewHolder，onBindViewHolder还是setSpanSizeLookup的getSpanSize，都充斥着大量的if与else
 
->Write repeat **if and else** become nightmare...
+>写重复的代码一直困扰着我
 
->One day，I decided RecyclerView.Adapter use all **if and else** wipe out，let RecyclerView.Adapter Automated configuration.
+>一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
 
----
-
-## [中文文档](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/README_CH.md)
 
 ## AutoRecyclerAdapter
 
-* Use ViewHolder.class ＋ reflect dynamic create ViewHolder
-* Use ViewHolder.class.hashCode()  as RecyclerVew.Adapter ViewType
-* Use package class to ViewType，spanSize build connection，Is no longer create field or extend class
-* Use AutoHolder，dynamic set model
-* Create ViewHolder can set parameter，stand by key and value
-* Stand by GridLayoutManager setSpanSizeLookup，create complex arrangement
+* 使用字节码＋反射动态创建ViewHolder
+* 使用ViewHolder.class.hashCode() 作为ViewType
+* 使用包装类与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
+* ViewHolder泛型定义，动态获取需要的数据模型（model）
+* ViewHolder创建可设置额外参数，支持传递对象或者Listener
+* 支持使用GridLayoutManager setSpanSizeLookup，创建复杂的排列方式
 
 ---
 
-**AutoRecyclerAdapter let Recycler.Adapter all methods Automated configuration. developer need outside outSize config ViewHolder and Data. No need custom Recycler.Adapter. Stand by create complex arrangement and fast create like shopping app home page layout**
+**AutoRecyclerAdapter把Recycler.Adapter里开发者需要手写的方法全部自动化，配置化。开发者只需要在外部配置Holder与model就能使用，不必重新自定义Adapter。复杂的多种类型Holder布局也不例外。能够快速的实现像淘宝，京东等首页复杂，多类型的布局**
 
-### Aim of design：Simplify，help developer no custom Recycler.Adapter
+### 设计的目的：化繁为简，帮助开发者不再实现Recycler.Adapter
 
 
 Screenshots
@@ -43,9 +40,9 @@ Screenshots
 Usage
 -----
 
-To one exist **seven** different ViewHolder page as example，like shopping app home page layout.
+以一个拥有**7个**不同的ViewHolder的界面为例，类似很多商城首页的布局
 
-Seven different List set up to seven different ViewHolder
+模拟服务器传来7种不同的List集合，需要设计7种不同的ViewHolder
 
 -----
 
@@ -53,7 +50,7 @@ Seven different List set up to seven different ViewHolder
 
 
 
-**1, Set up seven different ViewHolder，use Holder.class.hashCode() as ViewType**
+**1, 设置7种ViewHolder，使用Holder.class.hashCode()作为ViewType**
 
 ```java
 
@@ -74,7 +71,7 @@ Seven different List set up to seven different ViewHolder
 	.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 ```
 
-**2, Network reuqest seven different list**
+**2, 网络请求，获取数据**
 
 ```java
 
@@ -87,7 +84,7 @@ Seven different List set up to seven different ViewHolder
 	List<ZhengBean> zhengList = ModelHelper.getZhengList(30);
 ```
 
-**3,  Set up seven different List to ViewHolder，use Holder.class.hashCode() as ViewType**
+**3,  为7种不同的ViewHolder设置数据，使用Holder.class.hashCode()作为ViewType**
 
 ```java
 
@@ -104,7 +101,7 @@ Seven different List set up to seven different ViewHolder
 Expand
 ------
 
-**1，Stand by to ViewHolder transfer parameter: key and value like map**
+**1，支持向ViewHolder传递参数，对象或者Listener**
 
 ```java
 
@@ -122,7 +119,7 @@ Expand
 	}
 ```
 
-**2，Stand by use GridLayoutManager setSpanSizeLookup，create complex arrangement**
+**2，支持使用GridLayoutManager setSpanSizeLookup，创建复杂的排列方式**
 
 ```java
 
@@ -141,16 +138,16 @@ Expand
 Class
 ------
 
-**One core class，four auxiliary class**
+**一个核心类，4个辅助类**
 
 
 | name |  description |
 |:----|:----|
-| [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | Automated configuration Recycler.Adapter core class |
-| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | Automated configuration need ViewHolder |
-| [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java) | AutoRecyclerAdapter need model |
-| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | Automated create VewHolder need model |
-| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java)  | AutoHolder outside build connection example |
+| [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | 自动化Recycler.Adapter核心类 |
+| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | 自动化需要集成的ViewHolder |
+| [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java) | AutoRecyclerAdapter需要的model |
+| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | 自动化创建VewHolder所需要的model |
+| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java)  | AutoHolder与外部通讯的Listener范例 |
 
 
 Gradle
@@ -192,7 +189,7 @@ Proguard
 }
 ```
 
-### Want to learn about design details to [wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
+### 想了解具体设计细节，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
 
 Developed by
 -------
