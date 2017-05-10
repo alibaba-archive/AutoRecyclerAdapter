@@ -92,7 +92,7 @@ Other
 	
 	private ImageView iv;
 	private int position;
-    private ZhaoBean zhaoBean;
+	private ZhaoBean zhaoBean;
 	
 	public AutoBannerHolder(View itemView, Map<String, Object> dataMap) {
 		super(itemView, dataMap);
@@ -102,7 +102,7 @@ Other
 	
 	@Override public void bind(int position, ZhaoBean bean) {
 		this.position = position;
-        zhaoBean = bean;
+		zhaoBean = bean;
 		iv.setImageResource(bean.getIcon());
 	}
 	
@@ -111,8 +111,8 @@ Other
         if (listener != null) {
             listener.onAutoHolder(position, zhaoBean);
         }
-	 	}
-	}
+    }
+}
 ```
 
 **自动化创建ViewHolder**

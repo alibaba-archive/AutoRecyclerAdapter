@@ -12,7 +12,7 @@ public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
 
     public static final String LISTENER = "OnAutoHolderListener";
 
-    private Map<String, Object> dataMap;
+    protected Map<String, Object> dataMap;
 
     public AutoHolder(View itemView, Map<String, Object> dataMap) {
         super(itemView);
@@ -31,6 +31,10 @@ public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
             return (T) dataMap.get(key);
         }
         return null;
+    }
+
+    public Map<String, Object> getDataMap() {
+        return dataMap;
     }
 
     public abstract void bind(int position, M bean);
