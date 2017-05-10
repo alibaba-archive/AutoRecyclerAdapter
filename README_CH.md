@@ -9,8 +9,6 @@ AutoRecyclerAdapter
 >一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
 
 
-## AutoRecyclerAdapter
-
 * 使用字节码＋反射动态创建ViewHolder
 * 使用ViewHolder.class.hashCode() 作为ViewType
 * 使用包装类与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
@@ -31,9 +29,6 @@ Screenshots
 ![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/autos.gif)
 ![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/tb.png)
 ![](https://github.com/ruzhan123/AutoRecyclerAdapter/raw/master/gif/jd.png)
-
-
-
 
 
 
