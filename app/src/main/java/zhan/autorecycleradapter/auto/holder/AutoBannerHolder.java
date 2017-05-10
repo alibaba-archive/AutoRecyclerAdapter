@@ -2,9 +2,10 @@ package zhan.autorecycleradapter.auto.holder;
 
 import android.view.View;
 import android.widget.ImageView;
+import java.util.Map;
 import zhan.auto_adapter.AutoHolder;
+import zhan.auto_adapter.OnAutoHolderListener;
 import zhan.autorecycleradapter.R;
-import zhan.autorecycleradapter.auto.SendListener;
 import zhan.autorecycleradapter.bean.ZhaoBean;
 
 /**
@@ -13,21 +14,26 @@ import zhan.autorecycleradapter.bean.ZhaoBean;
 
 public class AutoBannerHolder extends AutoHolder<ZhaoBean> implements View.OnClickListener {
 
-  private ImageView iv;
+    private ImageView iv;
+    private int position;
+    private ZhaoBean zhaoBean;
 
-  public AutoBannerHolder(View itemView, Object obj1, Object obj2, Object obj3) {
-    super(itemView, obj1, obj2, obj3);
-    iv = (ImageView) itemView.findViewById(R.id.banner_iv);
-    itemView.setOnClickListener(this);
-  }
-
-  @Override public void bind(int position, ZhaoBean bean) {
-    iv.setImageResource(bean.getIcon());
-  }
-
-  @Override public void onClick(View v) {
-    if(obj1 instanceof SendListener) {
-      ((SendListener)obj1).send();
+    public AutoBannerHolder(View itemView, Map<String, Object> dataMap) {
+        super(itemView, dataMap);
+        iv = (ImageView) itemView.findViewById(R.id.banner_iv);
+        itemView.setOnClickListener(this);
     }
-  }
+
+    @Override public void bind(int position, ZhaoBean bean) {
+        this.position = position;
+        zhaoBean = bean;
+        iv.setImageResource(zhaoBean.getIcon());
+    }
+
+    @Override public void onClick(View v) {
+        OnAutoHolderListener listener = getOnAutoHolderListener();
+        if (listener != null) {
+            listener.onAutoHolder(position, zhaoBean);
+        }
+    }
 }

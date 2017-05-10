@@ -2,6 +2,7 @@ package zhan.auto_adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import java.util.Map;
 
 /**
  * Created by ruzhan on 2017/5/1.
@@ -9,16 +10,28 @@ import android.view.View;
 
 public abstract class AutoHolder<M> extends RecyclerView.ViewHolder {
 
-  protected Object obj1;
-  protected Object obj2;
-  protected Object obj3;
+    public static final String LISTENER = "OnAutoHolderListener";
 
-  public AutoHolder(View itemView, Object obj1, Object obj2, Object obj3) {
-    super(itemView);
-    this.obj1 = obj1;
-    this.obj2 = obj2;
-    this.obj3 = obj3;
-  }
+    private Map<String, Object> dataMap;
 
-  public abstract void bind(int position, M bean);
+    public AutoHolder(View itemView, Map<String, Object> dataMap) {
+        super(itemView);
+        this.dataMap = dataMap;
+    }
+
+    protected OnAutoHolderListener getOnAutoHolderListener() {
+        if (dataMap != null) {
+            return (OnAutoHolderListener) dataMap.get(LISTENER);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked") protected <T> T get(String key) {
+        if (dataMap != null) {
+            return (T) dataMap.get(key);
+        }
+        return null;
+    }
+
+    public abstract void bind(int position, M bean);
 }

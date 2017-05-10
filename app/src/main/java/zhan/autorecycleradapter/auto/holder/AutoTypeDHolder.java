@@ -3,6 +3,7 @@ package zhan.autorecycleradapter.auto.holder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.Map;
 import zhan.auto_adapter.AutoHolder;
 import zhan.autorecycleradapter.R;
 import zhan.autorecycleradapter.bean.ZhouBean;
@@ -13,17 +14,17 @@ import zhan.autorecycleradapter.bean.ZhouBean;
 
 public class AutoTypeDHolder extends AutoHolder<ZhouBean> {
 
-  private ImageView iv;
-  private TextView tv;
+    private ImageView iv;
+    private TextView tv;
 
-  public AutoTypeDHolder(View itemView, Object obj1, Object obj2, Object obj3) {
-    super(itemView, obj1, obj2, obj3);
-    iv = (ImageView) itemView.findViewById(R.id.icon_iv);
-    tv = (TextView) itemView.findViewById(R.id.title_tv);
-  }
+    public AutoTypeDHolder(View itemView, Map<String, Object> dataMap) {
+        super(itemView, dataMap);
+        iv = (ImageView) itemView.findViewById(R.id.icon_iv);
+        tv = (TextView) itemView.findViewById(R.id.title_tv);
+    }
 
-  @Override public void bind(int position, ZhouBean bean) {
-    iv.setImageResource(bean.getIcon());
-    tv.setText(bean.getText());
-  }
+    @Override public void bind(int position, ZhouBean bean) {
+        iv.setImageResource(bean.getIcon());
+        tv.setText(bean.getText());
+    }
 }

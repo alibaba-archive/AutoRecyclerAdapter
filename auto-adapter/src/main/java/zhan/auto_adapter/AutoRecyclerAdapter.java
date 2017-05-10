@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ruzhan on 2017/5/1.
@@ -26,7 +28,8 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
         return packageList.get(position).getType();
     }
 
-    @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @SuppressWarnings({ "unchecked", "TryWithIdenticalCatches" }) @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
         if (holderPackage == null) {
             throw new RuntimeException(
@@ -37,18 +40,14 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
             LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
         Class holderClass = holderPackage.getHolderClass();
 
-        Object obj1 = holderPackage.getObj1();
-        Object obj2 = holderPackage.getObj2();
-        Object obj3 = holderPackage.getObj3();
+        Map<String, Object> dataMap = holderPackage.getDataMap();
         try {
             Constructor constructor = holderConstructorMap.get(viewType);
             if (constructor == null) {
-                constructor = holderClass.getConstructor(View.class, Object.class, Object.class,
-                    Object.class);
+                constructor = holderClass.getConstructor(View.class, Map.class);
                 holderConstructorMap.put(viewType, constructor);
             }
-            AutoHolder autoHolder =
-                (AutoHolder) constructor.newInstance(itemView, obj1, obj2, obj3);
+            AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView, dataMap);
 
             holderList.add(autoHolder);
             return autoHolder;
@@ -64,7 +63,8 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
         throw new RuntimeException("( " + holderClass + " )  constructor error");
     }
 
-    @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    @SuppressWarnings("unchecked") @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AutoHolder) {
             AutoHolder autoHolder = (AutoHolder) holder;
             Object bean = packageList.get(position).getAutoPackage();
@@ -90,10 +90,17 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
         return this;
     }
 
-    public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Integer key, Class<H> holderClass,
-        int layoutRes, Object obj1, Object obj2, Object obj3) {
-        holderPackageMap.put(key,
-            new AutoHolderPackage<>(holderClass, layoutRes, obj1, obj2, obj3));
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToData(Integer key,
+        Class<H> holderClass, int layoutRes, Map<String, Object> dataMap) {
+        holderPackageMap.put(key, new AutoHolderPackage<>(holderClass, layoutRes, dataMap));
+        return this;
+    }
+
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToListener(Integer key,
+        Class<H> holderClass, int layoutRes, Map<String, Object> dataMap,
+        OnAutoHolderListener listener) {
+        dataMap.put(AutoHolder.LISTENER, listener);
+        holderPackageMap.put(key, new AutoHolderPackage<>(holderClass, layoutRes, dataMap));
         return this;
     }
 
@@ -102,19 +109,37 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
         return setHolder(holderClass.hashCode(), holderClass, layoutRes);
     }
 
-    public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes,
-        Object obj1) {
-        return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, null, null);
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToListener(Class<H> holderClass,
+        int layoutRes, OnAutoHolderListener listener) {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put(AutoHolder.LISTENER, listener);
+        return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
     }
 
-    public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes,
-        Object obj1, Object obj2) {
-        return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, obj2, null);
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToData(Class<H> holderClass,
+        int layoutRes, String key, Object value) {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put(key, value);
+        return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
     }
 
-    public <H extends AutoHolder> AutoRecyclerAdapter setHolder(Class<H> holderClass, int layoutRes,
-        Object obj1, Object obj2, Object obj3) {
-        return setHolder(holderClass.hashCode(), holderClass, layoutRes, obj1, obj2, obj3);
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToListener(Class<H> holderClass,
+        int layoutRes, String key, Object value, OnAutoHolderListener listener) {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put(key, value);
+        dataMap.put(AutoHolder.LISTENER, listener);
+        return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
+    }
+
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToData(Class<H> holderClass,
+        int layoutRes, Map<String, Object> dataMap) {
+        return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
+    }
+
+    public <H extends AutoHolder> AutoRecyclerAdapter setHolderToListener(Class<H> holderClass,
+        int layoutRes, Map<String, Object> dataMap, OnAutoHolderListener listener) {
+        dataMap.put(AutoHolder.LISTENER, listener);
+        return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
     }
 
     /////////////////////////////////////////////////////////////////////////
