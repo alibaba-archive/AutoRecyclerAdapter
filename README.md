@@ -197,6 +197,15 @@ Add the dependency:
 	}
 ```
 
+Proguard-rule:
+
+```java
+
+-keep public class * extends zhan.auto_adapter.AutoHolder {
+    public <init>(android.view.View, java.lang.Object, java.lang.Object, java.lang.Object);
+}
+```
+
 ### 想了解具体设计细节，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
 
 Developed by
