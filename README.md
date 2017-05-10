@@ -10,9 +10,9 @@ AutoRecyclerAdapter
 
 
 
-AutoRecyclerAdapter是一个接近万能的Adapter，它把Recycler.Adapter里开发者需要手写的方法全部自动化，配置化。开发者只需要在外部配置Holder与model就能使用，不必重新自定义Adapter。复杂的多种类型Holder布局也不例外。能够快速的实现像淘宝，京东等首页复杂，多类型的布局。
+AutoRecyclerAdapter，它把Recycler.Adapter里开发者需要手写的方法全部自动化，配置化。开发者只需要在外部配置Holder与model就能使用，不必重新自定义Adapter。复杂的多种类型Holder布局也不例外。能够快速的实现像淘宝，京东等首页复杂，多类型的布局。
 
-### 设计AutoRecyclerAdapter的目的：化繁为简，化整为零，帮助开发者不再实现Recycler.Adapter
+### 设计的目的：化繁为简，帮助开发者不再实现Recycler.Adapter
 
 
 Screenshots
@@ -24,7 +24,7 @@ Screenshots
 
 
 
-## 自动化配置Recycler.Adapter
+## AutoRecyclerAdapter
 
 * 使用字节码＋反射动态创建ViewHolder
 * 使用ViewHolder.class.hashCode() 作为ViewType
@@ -46,7 +46,7 @@ Usage
 
 
 
-**1, 设置7种ViewHolder，ViewHolder支持设置额外参数**
+**1, 设置7种ViewHolder，使用Holder.class.hashCode()作为Type**
 
 ```java
 
@@ -67,7 +67,20 @@ Usage
 	.setHolder(AutoTypeFHolder.class, R.layout.item_type_f);
 ```
 
-**2, 设置网络请求得到的7种不同List**
+**2, 网络请求，获取数据**
+
+```java
+
+	List<ZhaoBean> zhaoList = ModelHelper.getZhaoList(1);
+	List<QianBean> qianList = ModelHelper.getQianList(10);
+	List<SunBean> sunList = ModelHelper.getSunList(1);
+	List<LiBean> liList = ModelHelper.getLiList(4);
+	List<ZhouBean> zhouList = ModelHelper.getZhouList(10);
+	List<WuBean> wuList = ModelHelper.getWuList(1);
+	List<ZhengBean> zhengList = ModelHelper.getZhengList(30);
+```
+
+**3,  为7种不同的ViewHolder设置数据，使用Holder.class.hashCode()作为Type**
 
 ```java
 
@@ -81,96 +94,53 @@ Usage
 	.notifyDataSetChanged();
 ```
 
-Other
+Expand
 ------
 
-**自定义的ViewHolder需要继承AutoHolder，并填写需要的model作为泛型**
+**1，支持向ViewHolder传递参数，对象或者Listener**
 
 ```java
 
-	public class AutoBannerHolder extends AutoHolder<ZhaoBean> implements View.OnClickListener {
-	
-	private ImageView iv;
-	private int position;
-	private ZhaoBean zhaoBean;
-	
-	public AutoBannerHolder(View itemView, Map<String, Object> dataMap) {
-		super(itemView, dataMap);
-		iv = (ImageView) itemView.findViewById(R.id.banner_iv);
-		itemView.setOnClickListener(this);
+	public <H extends AutoHolder> AutoRecyclerAdapter setHolderToData(Class<H> holderClass,
+	    int layoutRes, Map<String, Object> dataMap) {
+	    return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
 	}
-	
-	@Override public void bind(int position, ZhaoBean bean) {
-		this.position = position;
-		zhaoBean = bean;
-		iv.setImageResource(bean.getIcon());
+
+	public <H extends AutoHolder> AutoRecyclerAdapter setHolderToListener(Class<H> holderClass,
+	int layoutRes, String key, Object value, OnAutoHolderListener listener) {
+		Map<String, Object> dataMap = new HashMap<>();
+		dataMap.put(key, value);
+		dataMap.put(AutoHolder.LISTENER, listener);
+		return setHolderToData(holderClass.hashCode(), holderClass, layoutRes, dataMap);
 	}
-	
-	@Override public void onClick(View v) {
-        OnAutoHolderListener listener = getOnAutoHolderListener();
-        if (listener != null) {
-            listener.onAutoHolder(position, zhaoBean);
-        }
-    }
-}
 ```
 
-**自动化创建ViewHolder**
+**2，支持使用GridLayoutManager setSpanSizeLookup，创建复杂的排列方式**
 
 ```java
 
-	@Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-	AutoHolderPackage holderPackage = holderPackageMap.get(viewType);
-	
-	int holderLayoutRes = holderPackage.getHolderLayoutRes();
-	View itemView =
-	LayoutInflater.from(parent.getContext()).inflate(holderLayoutRes, parent, false);
-	Class holderClass = holderPackage.getHolderClass();
-	
-	Constructor constructor = holderClass.getConstructor(View.class);
-	AutoHolder autoHolder = (AutoHolder) constructor.newInstance(itemView);
-	
-	return autoHolder;
-```
+	public <H extends AutoHolder, M> AutoRecyclerAdapter setDataObjectSpan(Class<H> holderClass,
+	    M bean, int spanSize) {
+	    return setDataObject(holderClass.hashCode(), bean, spanSize);
+	}
 
-**自动化bind ViewHolder**
-
-```java
-
-	@Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-		if (holder instanceof AutoHolder) {
-			AutoHolder autoHolder = (AutoHolder) holder;
-			Object bean = packageList.get(position).getAutoPackage();
-			autoHolder.bind(position, bean);
-		}
+	public <H extends AutoHolder, M> AutoRecyclerAdapter setDataListSpan(Class<H> holderClass,
+	List<M> list, int spanSize) {
+		return setDataList(holderClass.hashCode(), list, spanSize);
 	}
 ```
 
-**ViewType与SpanSize**
-
-```java
-
-	@Override public int getItemViewType(int position) {
-		return packageList.get(position).getType();
-	}
-	
-	
-	public int getSpanSize(int position) {
-		return packageList.get(position).getSpanSize();
-	}
-	
-	@Override public int getItemCount() {
-		return packageList.size();
-	}
-```
 
 Class
 ------
 
-* [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java)
-* [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java)
-* [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java)
-* [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java)
+| name |  description |
+|:----|:----|
+| [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | 自动化Recycler.Adapter核心类 |
+| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | 自动化需要集成的ViewHolder |
+| [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java) | AutoRecyclerAdapter需要的model |
+| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | 自动化创建VewHolder所需要的model |
+| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java)  | AutoHolder与外部通讯的Listener范例 |
 
 
 Gradle
@@ -202,7 +172,7 @@ Add the dependency:
 	}
 ```
 
-Proguard-rule:
+Proguard:
 
 ```java
 
