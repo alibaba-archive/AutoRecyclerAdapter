@@ -190,7 +190,7 @@ Proguard
 }
 ```
 
-### Want to learn about design details to [wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
+### Want to learn about design details to [Blog](https://ruzhan123.github.io/2017/05/05/2017-05-05-23-AutoRecyclerAdapter/)
 
 Developed by
 -------

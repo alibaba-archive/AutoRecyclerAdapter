@@ -184,7 +184,7 @@ Proguard
 }
 ```
 
-### 想了解具体设计细节，请移步[wiki](https://github.com/ruzhan123/AutoRecyclerAdapter/wiki/AutoRecyclerAdapter)
+### 想了解具体设计细节，请移步[我的博客]https://ruzhan123.github.io/2017/05/05/2017-05-05-23-AutoRecyclerAdapter/)
 
 Developed by
 -------
