@@ -9,8 +9,17 @@ AutoRecyclerAdapter
 >一天，我决定把关于RecyclerView.Adapter使用到的if与else都干掉，达到自动化配置的效果
 
 
+## AutoRecyclerAdapter
 
-AutoRecyclerAdapter，它把Recycler.Adapter里开发者需要手写的方法全部自动化，配置化。开发者只需要在外部配置Holder与model就能使用，不必重新自定义Adapter。复杂的多种类型Holder布局也不例外。能够快速的实现像淘宝，京东等首页复杂，多类型的布局。
+* 使用字节码＋反射动态创建ViewHolder
+* 使用ViewHolder.class.hashCode() 作为ViewType
+* model与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
+* ViewHolder泛型定义，动态获取需要的数据模型（model）自动类型转换
+* ViewHolder创建可设置额外参数，支持与Activity，fragment等建立通信
+
+---
+
+**AutoRecyclerAdapter把Recycler.Adapter里开发者需要手写的方法全部自动化，配置化。开发者只需要在外部配置Holder与model就能使用，不必重新自定义Adapter。复杂的多种类型Holder布局也不例外。能够快速的实现像淘宝，京东等首页复杂，多类型的布局**
 
 ### 设计的目的：化繁为简，帮助开发者不再实现Recycler.Adapter
 
@@ -24,13 +33,7 @@ Screenshots
 
 
 
-## AutoRecyclerAdapter
 
-* 使用字节码＋反射动态创建ViewHolder
-* 使用ViewHolder.class.hashCode() 作为ViewType
-* model与ViewType，spanSize建立联系，不再是model添加新字段或者继承的方式
-* ViewHolder泛型定义，动态获取需要的数据模型（model）自动类型转换
-* ViewHolder创建可设置额外参数，支持与Activity，fragment等建立通信
 
 
 Usage
@@ -134,6 +137,9 @@ Expand
 Class
 ------
 
+**一个核心类，4个辅助类**
+
+
 | name |  description |
 |:----|:----|
 | [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | 自动化Recycler.Adapter核心类 |
@@ -172,7 +178,8 @@ Add the dependency:
 	}
 ```
 
-Proguard:
+Proguard
+------
 
 ```java
 
