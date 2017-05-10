@@ -91,21 +91,26 @@ Other
 	public class AutoBannerHolder extends AutoHolder<ZhaoBean> implements View.OnClickListener {
 	
 	private ImageView iv;
+	private int position;
+    private ZhaoBean zhaoBean;
 	
-	public AutoBannerHolder(View itemView, Object obj1, Object obj2, Object obj3) {
-		super(itemView, obj1, obj2, obj3);
+	public AutoBannerHolder(View itemView, Map<String, Object> dataMap) {
+		super(itemView, dataMap);
 		iv = (ImageView) itemView.findViewById(R.id.banner_iv);
 		itemView.setOnClickListener(this);
 	}
 	
 	@Override public void bind(int position, ZhaoBean bean) {
+		this.position = position;
+        zhaoBean = bean;
 		iv.setImageResource(bean.getIcon());
 	}
 	
 	@Override public void onClick(View v) {
-		if(obj1 instanceof SendListener) {
-			((SendListener)obj1).send();
-	  		}
+        OnAutoHolderListener listener = getOnAutoHolderListener();
+        if (listener != null) {
+            listener.onAutoHolder(position, zhaoBean);
+        }
 	 	}
 	}
 ```
@@ -193,7 +198,7 @@ Add the dependency:
 ```java
 
 	dependencies {
-	        compile 'com.github.ruzhan123:AutoRecyclerAdapter:v1.4'
+	        compile 'com.github.ruzhan123:AutoRecyclerAdapter:v1.5'
 	}
 ```
 
@@ -202,7 +207,7 @@ Proguard-rule:
 ```java
 
 -keep public class * extends zhan.auto_adapter.AutoHolder {
-    public <init>(android.view.View, java.lang.Object, java.lang.Object, java.lang.Object);
+    public <init>(android.view.View, java.util.Map);
 }
 ```
 
