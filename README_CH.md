@@ -136,13 +136,13 @@ Class
 **一个核心类，4个辅助类**
 
 
-| name |  description |
-|:----|:----|
-| [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | 自动化Recycler.Adapter核心类 |
-| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | 自动化需要集成的ViewHolder |
+| name                                     | description                 |
+| :--------------------------------------- | :-------------------------- |
+| [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | 自动化Recycler.Adapter核心类      |
+| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | 自动化需要集成的ViewHolder          |
 | [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java) | AutoRecyclerAdapter需要的model |
-| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | 自动化创建VewHolder所需要的model |
-| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java)  | AutoHolder与外部通讯的Listener范例 |
+| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | 自动化创建VewHolder所需要的model     |
+| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java) | AutoHolder与外部通讯的Listener范例  |
 
 
 Gradle
@@ -184,7 +184,7 @@ Proguard
 }
 ```
 
-### 想了解具体设计细节，请移步[我的博客]https://ruzhan123.github.io/2017/05/05/2017-05-05-23-AutoRecyclerAdapter/)
+### 想了解具体设计细节，请移步[我的博客](https://ruzhan123.github.io/2017/05/05/2017-05-05-23-AutoRecyclerAdapter/)
 
 Developed by
 -------
