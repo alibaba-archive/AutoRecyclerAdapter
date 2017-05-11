@@ -21,7 +21,7 @@ AutoRecyclerAdapter
 
 ---
 
-**AutoRecyclerAdapter let Recycler. Adapter all methods Automated configuration.  developer need outside outSize config ViewHolder and Data. No need custom Recycler.Adapter. Stand by create complex arrangement and fast create like shopping app home page layout**
+**AutoRecyclerAdapter let Recycler. Adapter all methods Automated configuration.  developer need outside config ViewHolder and Data. No need custom Recycler.Adapter. Stand by create complex arrangement and fast create like shopping app home page layout**
 
 ### Aim of design：Simplify，help developer no custom Recycler.Adapter
 
@@ -142,13 +142,13 @@ Class
 **One core class，four auxiliary class**
 
 
-| name |  description |
-|:----|:----|
+| name                                     | description                              |
+| :--------------------------------------- | :--------------------------------------- |
 | [AutoRecyclerAdapter](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoRecyclerAdapter.java) | Automated configuration Recycler.Adapter core class |
-| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | Automated configuration need ViewHolder |
-| [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java) | AutoRecyclerAdapter need model |
-| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | Automated create VewHolder need model |
-| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java)  | AutoHolder outside build connection example |
+| [AutoHolder](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolder.java) | Automated configuration need ViewHolder  |
+| [AutoPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoPackage.java) | AutoRecyclerAdapter need model           |
+| [AutoHolderPackage](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/AutoHolderPackage.java) | Automated create VewHolder need model    |
+| [OnAutoHolderListener](https://github.com/ruzhan123/AutoRecyclerAdapter/blob/master/auto-adapter/src/main/java/zhan/auto_adapter/OnAutoHolderListener.java) | AutoHolder outside build connection example |
 
 
 Gradle
