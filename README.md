@@ -23,7 +23,7 @@ AutoRecyclerAdapter
 
 **AutoRecyclerAdapter let Recycler. Adapter all methods Automated configuration.  developer need outside config ViewHolder and Data. No need custom Recycler.Adapter. Stand by create complex arrangement and fast create like shopping app home page layout**
 
-### Aim of design：Simplify，help developer no custom Recycler.Adapter
+### Purpose：help developer no custom Recycler.Adapter
 
 
 Screenshots
@@ -190,7 +190,7 @@ Proguard
 }
 ```
 
-### Want to learn about design details to [Blog](https://ruzhan123.github.io/2017/05/05/2017-05-05-23-AutoRecyclerAdapter/)
+### Want to learn about details to [Blog](https://ruzhan123.github.io/2017/05/05/2017-05-05-23-AutoRecyclerAdapter/)
 
 Developed by
 -------
