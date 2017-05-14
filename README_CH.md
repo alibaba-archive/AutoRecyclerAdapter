@@ -124,7 +124,23 @@ Other
 
 ```java
 
-autoRecyclerAdapter.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+	@Override public int getSpanSize(int position) {
+	return autoRecyclerAdapter.getSpanSize(position);
+	}
+	});
+
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	.setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
+	.setHolder(AutoTypeBHolder.class, R.layout.item_type_b);
+
+	int spanSizeA = 2;
+	int spanSizeB = spanSizeA / 2;
+
+	autoRecyclerAdapter.setDataList(AutoTypeAHolder.class, qianList, spanSizeA)
+						.setDataList(AutoTypeBHolder.class, sunList, spanSizeB)
+						.notifyDataSetChanged();
 ```
 
 Expand
