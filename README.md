@@ -99,6 +99,40 @@ Seven different List set up to seven different ViewHolder
 	.notifyDataSetChanged();
 ```
 
+Other
+------
+
+**1, if only use one List and one ViewHolder**
+
+```java
+
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	.setHolder(AutoTypeAHolder.class, R.layout.item_type_a);
+
+	autoRecyclerAdapter.setDataList(AutoTypeAHolder.class, qianList)
+						.notifyDataSetChanged();
+```
+
+**2, if use two List and two ViewHolder**
+
+```java
+
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	.setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
+	.setHolder(AutoTypeBHolder.class, R.layout.item_type_b);
+
+	autoRecyclerAdapter.setDataList(AutoTypeAHolder.class, qianList)
+						.setDataList(AutoTypeBHolder.class, sunList)
+						.notifyDataSetChanged();
+```
+
+**3, if use GridLayoutManager setSpanSizeLookup**
+
+```java
+
+autoRecyclerAdapter.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
+```
+
 Expand
 ------
 

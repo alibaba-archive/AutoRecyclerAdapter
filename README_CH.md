@@ -93,6 +93,40 @@ Usage
 	.notifyDataSetChanged();
 ```
 
+Other
+------
+
+**1, 只使用一种类型List和一种类型ViewHolder**
+
+```java
+
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	.setHolder(AutoTypeAHolder.class, R.layout.item_type_a);
+
+	autoRecyclerAdapter.setDataList(AutoTypeAHolder.class, qianList)
+						.notifyDataSetChanged();
+```
+
+**2, 使用两种类型List和两种类型ViewHolder**
+
+```java
+
+	autoRecyclerAdapter = new AutoRecyclerAdapter();
+	.setHolder(AutoTypeAHolder.class, R.layout.item_type_a)
+	.setHolder(AutoTypeBHolder.class, R.layout.item_type_b);
+
+	autoRecyclerAdapter.setDataList(AutoTypeAHolder.class, qianList)
+						.setDataList(AutoTypeBHolder.class, sunList)
+						.notifyDataSetChanged();
+```
+
+**3, 使用GridLayoutManager setSpanSizeLookup**
+
+```java
+
+autoRecyclerAdapter.setDataListSpan(AutoTypeAHolder.class, qianList, SPAN_SIZE / 5)
+```
+
 Expand
 ------
 
