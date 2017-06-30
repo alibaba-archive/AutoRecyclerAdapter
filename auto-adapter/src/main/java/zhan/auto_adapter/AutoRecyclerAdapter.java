@@ -19,7 +19,6 @@ import java.util.Map;
 public class AutoRecyclerAdapter extends RecyclerView.Adapter {
 
     protected List<AutoPackage> packageList = new ArrayList<>();
-    protected List<Object> dataList = new ArrayList<>();
     protected SparseArray<AutoHolderPackage> holderPackageMap = new SparseArray<>();
     private SparseArray<Constructor> holderConstructorMap = new SparseArray<>();
     protected List<AutoHolder> holderList = new ArrayList<>();
@@ -149,14 +148,12 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
     private <M> AutoRecyclerAdapter setDataObject(int index, int type, M bean, int spanSize) {
         AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
         packageList.add(index, autoPackage);
-        dataList.add(index, bean);
         return this;
     }
 
     private <M> AutoRecyclerAdapter setDataObject(int type, M bean, int spanSize) {
         AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
         packageList.add(autoPackage);
-        dataList.add(bean);
         return this;
     }
 
@@ -203,14 +200,20 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
 
     public AutoRecyclerAdapter removeDataObject(int index) {
         packageList.remove(index);
-        dataList.remove(index);
         return this;
     }
 
     public <M> AutoRecyclerAdapter removeDataObject(M bean) {
-        int index = dataList.indexOf(bean);
+        int index = -1;
+        for (int i = 0; i < packageList.size(); i++) {
+            Object object = packageList.get(i).getAutoPackage();
+            if (object == bean) {
+                index = i;
+                break;
+            }
+        }
         if (index >= 0) {
-            removeDataObject(index);
+            packageList.remove(index);
         }
         return this;
     }
@@ -221,7 +224,8 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
 
     public <M> boolean containsDataObject(M bean) {
         boolean flag = false;
-        for (Object object : dataList) {
+        for (int i = 0; i < packageList.size(); i++) {
+            Object object = packageList.get(i).getAutoPackage();
             if (object == bean) {
                 flag = true;
                 break;
@@ -239,7 +243,6 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
             for (M bean : list) {
                 AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
                 packageList.add(autoPackage);
-                dataList.add(bean);
             }
         }
         return this;
@@ -251,7 +254,6 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
                 M bean = list.get(x);
                 AutoPackage autoPackage = new AutoPackage(type, bean, spanSize);
                 packageList.add(index, autoPackage);
-                dataList.add(index, bean);
             }
         }
         return this;
@@ -307,12 +309,16 @@ public class AutoRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     public List<Object> getDataList() {
+        List<Object> dataList = new ArrayList<>();
+        for (int i = 0; i < packageList.size(); i++) {
+            Object object = packageList.get(i).getAutoPackage();
+            dataList.add(object);
+        }
         return dataList;
     }
 
     public AutoRecyclerAdapter clear() {
         packageList.clear();
-        dataList.clear();
         return this;
     }
 
